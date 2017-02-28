@@ -2,7 +2,7 @@
 (Source code will be available soon).
 
 # Introduction
-ADEL is a robust and efficient entity linking framework that is adaptive to text genres and language, entity types for the classification task and referent knowledge base for the linking task.
+ADEL is a robust and efficient entity linking framework that is adaptive to text genres and language, entity types for the classification task and referent knowledge base for the linking task. A demo is available [online](http://adel.eurecom.fr/api/).
 
 # Libraries
 
