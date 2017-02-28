@@ -21,7 +21,7 @@ ADEL is a robust and efficient entity linking framework that is adaptive to text
 * Java 1.8
 * Maven 3.0.5 minimum
 * Elasticsearch 5.x minimum
-* At least one NLP system with a Web API (such as [Stanford CoreNLP](https://github.com/jplu/stanfordNLPRESTAPI))
+* At least one NLP system with a ADEL Web API compliant (such as [Stanford CoreNLP](https://github.com/jplu/stanfordNLPRESTAPI))
 
 # Maven Compilation
 
