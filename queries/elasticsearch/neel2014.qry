@@ -1,0 +1,17 @@
+{
+  "from": 0,
+  "size": 9794,
+  "_source":["rdfs_label","dbo_wikiPageRedirects","dbo_wikiPageDisambiguates","rdf_type","link","pagerank"],
+  "query": {
+    "bool": {
+      "must": {
+        "query_string": {
+          "fields": ["dbo_wikiPageWikiLinkText","dbo_wikiPageRedirects","rdfs_label","dbo_pseudonym"],
+          "query": "%s0",
+          "default_operator": "OR",
+          "fuzziness": "auto"
+        }
+      }
+    }
+  }
+}

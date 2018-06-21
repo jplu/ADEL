@@ -1,0 +1,35 @@
+{
+  "from": 0,
+  "size": 10000,
+  "query": {
+    "bool": {
+      "must": {
+        "query_string": {
+          "query": "%s0",
+          "default_operator": "OR",
+          "fuzziness": "auto"
+        }
+      },
+      "filter": {
+        "bool": {
+          "should": [
+            {
+              "terms": {
+                "rdf_type.keyword":["http://purl.org/ontology/mo/MusicArtist","http://purl.org/ontology/mo/SignalGroup","http://purl.org/ontology/mo/MusicalWork"]
+              }
+            },
+            {
+              "bool": {
+                "must_not": {
+                  "exists": {
+                    "field": "rdf_type"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

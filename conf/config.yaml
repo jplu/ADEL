@@ -1,0 +1,36 @@
+logging:
+  level: INFO
+  appenders:
+    - type: console
+      threshold: ALL
+      timeZone: Europe/Paris
+      target: stdout
+    - type: file
+      currentLogFilename: logs/adel.log
+      threshold: ALL
+      archive: true
+      archivedLogFilenamePattern: logs/adel-%d.log
+      archivedFileCount: 5
+      timeZone: Europe/Paris
+
+server:
+  requestLog:
+    enabled: true
+    appenders:
+        - type: console
+          threshold: ALL
+          timeZone: Europe/Paris
+          target: stdout
+        - type: file
+          currentLogFilename: logs/adel-queries.log
+          threshold: ALL
+          archive: true
+          archivedLogFilenamePattern: logs/adel-queries-%d.log
+          archivedFileCount: 5
+          timeZone: Europe/Paris
+  applicationConnectors:
+    - type: http
+      port: 7000
+  adminConnectors:
+    - type: http
+      port: 7001

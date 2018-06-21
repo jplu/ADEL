@@ -1,0 +1,50 @@
+#LateX files
+*.aux
+*.dvi
+*.bbl
+*.blg
+*.log
+*.out
+*.synctex.gz
+
+#Java files
+target/
+hs_err_pid*
+
+#IntelliJ IDEA files
+.idea/
+*.iml
+
+#Data files
+*.conll
+*.tac
+*.csv
+*.pdf
+*.json
+*/indexing/*.txt
+dependency-reduced-pom.xml
+untitled.xml
+.DS_Store
+*.ser.gz
+*.zip
+cross_validation/
+
+#Lucene files
+*.cfe
+*.cfs
+*.si
+*.fdt
+*.fdx
+*.fnm
+*.nvd
+*.nvm
+*.doc
+*.pos
+*.tim
+*.tip
+*.lock
+segments*
+/scripts/scp.sh
+/profiles/en_oke2017[1-3][0-9]*
+/profiles/en_oke2016[0-9]*
+/profiles/en_oke2015[0-9]*

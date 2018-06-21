@@ -1,0 +1,39 @@
+extract:
+  tokenize: http://localhost/v4/tokenize
+  to: DBpedia
+  priority: stanfordgaz,stanfordner,stanfordoke
+  ner:
+    - address: http://localhost/v4/ner
+      name: stanfordoke
+      profile: oke20171
+      from: DBpedia
+      method: NER API
+    - address: http://localhost/v4/ner
+      name: stanfordner
+      profile: none
+      tags: PERSON,LOCATION,ORGANIZATION
+      from: Stanford
+      method: NER API
+  gaz:
+    - address: http://localhost/v4/gazetteer
+      name: stanfordgaz
+      profile: oke20171
+      from: DBpedia
+      method: NER API
+
+#DBpedia 2016-04
+index:
+  name: dbpedia201510
+  from: DBpedia
+  elasticsearch:
+    address: http://localhost:9200
+    strict: true
+    query: dbpedia-with-filter
+
+link:
+  to: DBpedia
+  method: ADEL Formula
+
+nerd:
+  to: DBpedia
+  priority: stanfordgaz,stanfordner,uri,stanfordoke

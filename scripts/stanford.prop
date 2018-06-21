@@ -1,0 +1,44 @@
+type = crf
+
+wordFunction = edu.stanford.nlp.process.AmericanizeFunction
+
+distSimLexicon = scripts/egw4-reut.512.clusters
+numberEquivalenceDistSim = true
+unknownWordDistSimClass = 0
+useDistSim = true
+
+map = word=0,answer=1
+
+saveFeatureIndexToDisk = true
+
+useClassFeature=true
+useWord=true
+useNGrams=true
+noMidNGrams=true
+maxNGramLeng=6
+usePrev=true
+useNext=true
+useLongSequences=true
+useSequences=true
+usePrevSequences=true
+useTypeSeqs=true
+useTypeSeqs2=true
+useTypeySequences=true
+useOccurrencePatterns=true
+useLastRealWord=true
+useNextRealWord=true
+normalize=true
+wordShape=chris2useLC
+useDisjunctive=true
+disjunctionWidth=5
+#useDisjunctiveShapeInteraction=true
+
+maxLeft=1
+readerAndWriter=edu.stanford.nlp.sequences.ColumnDocumentReaderAndWriter
+
+useObservedSequencesOnly=true
+
+useQN = true
+QNsize = 25
+
+featureDiffThresh=0.05

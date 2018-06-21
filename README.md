@@ -1,8 +1,30 @@
 # ADEL
-(Source code will be available soon).
 
 # Introduction
 ADEL is a robust and efficient entity linking framework that is adaptive to text genres and language, entity types for the classification task and referent knowledge base for the linking task. A demo is available [online](http://adel.eurecom.fr/api/).
+
+# Value Chain
+The following diagram shows the abilities and steps in ADEL without the technical aspects.
+
+![alt text](https://user-images.githubusercontent.com/959590/27731615-0d27a196-5d8e-11e7-91f4-94fffa427575.jpg)
+
+## Pre-processing
+* text classification
+* language detection
+* if tweet
+  * hashtag and user mention extraction
+  * hashtag segmentation and user dereferencing
+
+## Extraction
+* run the extractor(s) to get the entities or surface forms that might be an entity
+* run an overlap resolution over the output of each extractor to do not have nested entities
+
+## Linking
+* generate a list of candidates for each entity
+* if the list of candidates is not empty
+  * run a linker to disambiguate the entities
+* else
+  * run a NIL clustering
 
 # Libraries
 
@@ -18,9 +40,9 @@ ADEL is a robust and efficient entity linking framework that is adaptive to text
 
 # Requirements
 
-* Java 1.8
-* Maven 3.0.5 minimum
-* Elasticsearch 5.x minimum
+* Java 1.9
+* Maven 3.5.0
+* Elasticsearch 5.x
 * At least one NLP system with an ADEL Web API compliant (such as [Stanford CoreNLP](https://github.com/jplu/stanfordNLPRESTAPI))
 
 # Maven Compilation
@@ -36,7 +58,7 @@ The fat JAR will be available in the *target* directory.
 # Usage
 
 ```
-usage: java -jar adel.jar
+usage: java --add-modules java.xml.bind -jar target/adel-1.0-SNAPSHOT.jar
        [-h] [-v] {server,check,extract,link,nerd} ...
 
 positional arguments:
@@ -59,7 +81,7 @@ The first way is via CLI with six possible sub-commands, **extract**, **link** a
 To use the **extract** CLI:
 
 ```
-sage: java -jar adel.jar
+sage: java --add-modules java.xml.bind -jar target/adel-1.0-SNAPSHOT.jar
        extract [-of {nif,brat,conll,naf}] [-if {raw,srt,ttml}] [-s SETTING] [-l LANG] [-o OFILE] [-n {true,false}] [-h] (-t TEXT | -i IFILE | -u URL) [file]
 
 Only extract and type entities
@@ -94,7 +116,7 @@ inputs:
 To use the **link** CLI:
 
 ```
-usage: java -jar adel.jar
+usage: java --add-modules java.xml.bind -jar target/adel-1.0-SNAPSHOT.jar
        link [-f {nif,brat,tac,naf}] [-s SETTING] [-l LANG] [-o OFILE] [-n {true,false}] [-h] (-t TEXT | -i IFILE | -u URL) [file]
 
 Only linking entities
@@ -127,7 +149,7 @@ inputs:
 To use the **nerd** CLI:
 
 ```
-usage: java -jar adel.jar
+usage: java --add-modules java.xml.bind -jar target/adel-1.0-SNAPSHOT.jar
        nerd [-of {nif,brat,tac,naf}] [-if {raw,srt,ttml}] [-s SETTING] [-l LANG] [-o OFILE] [-n {true,false}] [-h] (-t TEXT | -i IFILE | -u URL) [file]
 
 Extract, type and link entities
@@ -162,7 +184,7 @@ inputs:
 The second way is via a Web API:
 
 ```
-usage: java -jar adel.jar
+usage: java --add-modules java.xml.bind -jar target/adel-1.0-SNAPSHOT.jar
        server [-h] [file]
 
 Runs the Dropwizard application as an HTTP server

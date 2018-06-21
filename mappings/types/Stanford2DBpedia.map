@@ -1,0 +1,4 @@
+PERSON	http://dbpedia.org/ontology/Person
+ORGANIZATION	http://dbpedia.org/ontology/Organisation
+LOCATION	http://dbpedia.org/ontology/Place
+MISC	http://www.w3.org/2002/07/owl#Thing

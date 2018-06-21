@@ -1,0 +1,26 @@
+extract:
+  tokenize: http://localhost/v4/tokenize
+  to: Stanford
+  priority: stanfordner
+  ner:
+    - address: http://localhost/v4/ner
+      name: stanfordner
+      profile: conll
+      from: Stanford
+      method: NER API
+
+index:
+  name: dbpedia201510
+  from: DBpedia
+  elasticsearch:
+    address: http://localhost:9200
+    strict: false
+    query: aida
+
+link:
+  to: Stanford
+  method: ADEL Formula
+
+nerd:
+  to: Stanford
+  priority: stanfordner,uri

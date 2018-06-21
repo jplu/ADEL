@@ -1,0 +1,8 @@
+ADEL	Lucene	Elasticsearch
+types	types	rdf_type
+link	uri	link
+disambiguation	disambiguation	dbo_wikiPageDisambiguates
+redirect	redirect	dbo_wikiPageRedirects
+surfaceForms	surfaceForms	dbo_wikiPageWikiLinkText
+pagerank	pageRank	pagerank
+label	label	rdfs_label

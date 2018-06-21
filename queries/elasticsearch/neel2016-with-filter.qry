@@ -1,0 +1,38 @@
+{
+  "from": 0,
+  "size": 7840,
+  "_source":["rdfs_label","dbo_wikiPageRedirects","dbo_wikiPageDisambiguates","rdf_type","link","pagerank"],
+  "query": {
+    "bool": {
+      "must": {
+        "query_string": {
+          "fields": ["dbo_wikiPageWikiLinkText","dbo_wikiPageRedirects","rdfs_label","dbo_pseudonym"],
+          "query": "%s0",
+          "default_operator": "OR",
+          "fuzziness": "auto"
+        }
+      },
+      "filter": {
+        "bool": {
+          "should": [
+            {
+              "terms": {
+                "rdf_type.keyword":["dbo_Place", "dbo_Person", "dbo_Award", "dbo_Organisation", "dbo_EthnicGroup", "dbo_Event", "dbo_SpaceStation", "dbo_Holiday", "dbo_CelestialBody", "dbo_Work"]
+              }
+            },
+            {
+              "bool": {
+                "must_not": {
+                  "exists": {
+                    "field": "rdf_type"
+                  }
+                }
+              }
+            }
+          ],
+          "minimum_should_match": 1
+        }
+      }
+    }
+  }
+}
