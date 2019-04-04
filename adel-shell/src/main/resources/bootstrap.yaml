@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    config:
+      uri: ${CONFIG_URI:http://localhost:8888}
+  application:
+    name: adel
+  main:
+    web-application-type: none
