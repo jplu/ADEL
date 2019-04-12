@@ -351,6 +351,11 @@ ran in a specific order:
     java -jar adel-api-gateway/target/adel-api-gateway-2.0.0.jar
     ```
 
+Example:
+```text
+curl -XPOST -H "Content-Type: application/json" --data '{"text": "Barack Obama was born in Hawaii. He was elected president in 2008."}' http://localhost:9004/adel/api/v2/recognize/
+```
+
 Optionally two others services can be ran as well:
 1. The Admin Server (Spring Boot Admin)
 
