@@ -20,7 +20,7 @@ import lombok.Setter;
 public class AnnotatorConfig {
   private @NotBlank @URL String address;
   private @NotBlank String annotator;
-  private @NotBlank @OneOf({"NEEL", "CoNLL", "DUL", "Musicbrainz", "DBpedia", "CoNLL0203"}) String from;
+  private @NotBlank @OneOf({"NEEL", "CoNLL", "DUL", "Musicbrainz", "DBpedia", "MUC"}) String from;
   private @UniqueElements List<String> tags;
   private @NotBlank String name;
   private @NotNull Boolean tokenizer;

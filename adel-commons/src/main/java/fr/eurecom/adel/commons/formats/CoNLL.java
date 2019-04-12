@@ -5,11 +5,14 @@ import org.javatuples.Triplet;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -240,7 +243,9 @@ public class CoNLL {
     }
     
     if (this.output != null) {
-      Files.write(this.output, Arrays.asList(this.conllContent.split(System.lineSeparator())));
+      Files.writeString(this.output, this.conllContent);
+      //Files.write(this.output, Collections.singletonList(System.lineSeparator()),
+      //    StandardOpenOption.APPEND);
     }
   }
   

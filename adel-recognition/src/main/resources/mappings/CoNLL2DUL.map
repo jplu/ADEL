@@ -1,0 +1,4 @@
+PER	http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#Person
+LOC	http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#Place
+ORG	http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#Organization
+MISC	http://www.w3.org/2002/07/owl#Thing

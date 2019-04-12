@@ -27,7 +27,7 @@ class MajorityVotingTypeOverlapResolutionTest {
     config.setPriority(Arrays.asList("ann1", "ann2", "ann3"));
     
     final List<Entity> entities = new ArrayList<>();
-    final Entity entity = Entity.builder().type("PERSONfromCoNLL--ann1||dbo_PersonfromDBpedia--ann2||dbo_PlacefromDBpedia--ann3").build();
+    final Entity entity = Entity.builder().type("PERfromCoNLL--ann1||dbo_PersonfromDBpedia--ann2||dbo_PlacefromDBpedia--ann3").build();
     
     entities.add(entity);
     
@@ -36,7 +36,7 @@ class MajorityVotingTypeOverlapResolutionTest {
     
     voting.resolveTypeOverlapping(config, document.getEntities());
     
-    Assertions.assertEquals("PERSON", document.getEntities().get(0).getType(), "Must be equals");
+    Assertions.assertEquals("PER", document.getEntities().get(0).getType(), "Must be equals");
   }
   
   @Test
@@ -47,7 +47,7 @@ class MajorityVotingTypeOverlapResolutionTest {
     config.setPriority(Arrays.asList("ann1", "ann3"));
     
     final List<Entity> entities = new ArrayList<>();
-    final Entity entity = Entity.builder().type("PERSONfromCoNLL--ann1||dbo_PlacefromDBpedia--ann3").build();
+    final Entity entity = Entity.builder().type("PERfromCoNLL--ann1||dbo_PlacefromDBpedia--ann3").build();
     
     entities.add(entity);
     
@@ -56,7 +56,7 @@ class MajorityVotingTypeOverlapResolutionTest {
     
     voting.resolveTypeOverlapping(config, document.getEntities());
     
-    Assertions.assertEquals("PERSON", document.getEntities().get(0).getType(), "Must be equals");
+    Assertions.assertEquals("PER", document.getEntities().get(0).getType(), "Must be equals");
   }
   
   @Test
@@ -67,7 +67,7 @@ class MajorityVotingTypeOverlapResolutionTest {
     config.setPriority(Arrays.asList("ann3", "ann1"));
     
     final List<Entity> entities = new ArrayList<>();
-    final Entity entity = Entity.builder().type("PERSONfromCoNLL--ann1||dbo_PlacefromDBpedia--ann3").build();
+    final Entity entity = Entity.builder().type("PERfromCoNLL--ann1||dbo_PlacefromDBpedia--ann3").build();
     
     entities.add(entity);
     
@@ -76,7 +76,7 @@ class MajorityVotingTypeOverlapResolutionTest {
     
     voting.resolveTypeOverlapping(config, document.getEntities());
     
-    Assertions.assertEquals("LOCATION", document.getEntities().get(0).getType(), "Must be equals");
+    Assertions.assertEquals("LOC", document.getEntities().get(0).getType(), "Must be equals");
   }
   
   @Test
@@ -87,7 +87,7 @@ class MajorityVotingTypeOverlapResolutionTest {
     config.setPriority(Arrays.asList("ann3", "ann1"));
     
     final List<Entity> entities = new ArrayList<>();
-    final Entity entity = Entity.builder().type("PERSONfromCNL--ann1||dbo_PlacefromDBpedia--ann3").build();
+    final Entity entity = Entity.builder().type("PERfromCNL--ann1||dbo_PlacefromDBpedia--ann3").build();
     
     entities.add(entity);
     
@@ -101,11 +101,11 @@ class MajorityVotingTypeOverlapResolutionTest {
   final void resolveTypeOverlappingUnHappyWrongType() {
     final TypeOverlappingConfig config = new TypeOverlappingConfig();
     
-    config.setTo("CoNLL");
+    config.setTo("MUC");
     config.setPriority(Arrays.asList("ann3", "ann1"));
     
     final List<Entity> entities = new ArrayList<>();
-    final Entity entity = Entity.builder().type("PEOfromCoNLL0203--ann1||dbo_PlacefromDBpedia--ann3").build();
+    final Entity entity = Entity.builder().type("PEOPEOfromCoNLL--ann1||dbo_PlacefromDBpedia--ann3").build();
     
     entities.add(entity);
     

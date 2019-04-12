@@ -135,7 +135,7 @@ java -jar adel-config-server/target/adel-config-server-2.0.0.jar
 
 ADEL comes with its own shell and CLI interface. To start the shell run:
 ```text
-java -jar adel-shell/target/adel-shell-2.0.0.jar
+java -jar adel-shell/target/adel-shell-2.0.0.jar --spring.profiles.active=<profile-name>
 ```
 
 Once connected to the shell you have some commands available.
@@ -185,7 +185,7 @@ NAME
         ner - Recognize entities from an input text or an input text file
 
 SYNOPSYS
-        ner [[--text] string]  [[--input-file] string]  [[--output-format] string]  [[--output-file] string]  [[--output-text] string]  [--force]  [--print]  [--all-annotators]  
+        ner [[--text] string]  [[--input-file] string]  [[--format] string]  [[--output-file] string]  [[--output-text] string]  [--force]  [--print]  [--all-annotators]  
 
 OPTIONS
         --text  string
@@ -199,7 +199,7 @@ OPTIONS
                 [Must be a file]
                 [Must be readable]
 
-        --output-format  string
+        --format  string
                 
                 [Optional, default = CoNLL]
                 [Must be one of [CoNLL, NIF, TAC]]
@@ -224,6 +224,11 @@ OPTIONS
 
         --all-annotators        Write the output of each annotator in a file
                 [Optional, default = false]
+```
+
+Example:
+```text
+ner --text "Barack Obama was born in Hawaii. He was elected president in 2008." --output-file ./output.conll --print
 ```
 
 #### Ner-score
@@ -259,6 +264,16 @@ OPTIONS
                 [Must be one of [CoNLL, NIF, TAC]]
 ```
 
+Before to run the example, apply the following command line in a standard shell:
+```text
+cut -d' ' -f2 output.conll | paste -d' ' output.conll - | sed 's/^[ \t]*//;s/[ \t]*$//' > new_output.conll
+```
+
+And then in the ADEL shell, as example:
+```text
+ner-score --input-file ./new_output.conll
+```
+
 #### Ner-test
 This command allows you to test the recognition against a given dataset.
 ```text
@@ -269,7 +284,7 @@ NAME
         ner-test - Test the recognition over a dataset
 
 SYNOPSYS
-        ner-test [--input-file] string  [[--gold] string]  [--output-file] string  [--force]  [[--input-format] string]  [--print]  
+        ner-test [--input-file] string  [[--gold] string]  [--output-file] string  [--force]  [[--format] string]  [--print]  
 
 OPTIONS
         --input-file  string
@@ -294,13 +309,18 @@ OPTIONS
         --force Delete the file represented by --output-file
                 [Optional, default = false]
 
-        --input-format  string
+        --format  string
                 
                 [Optional, default = CoNLL]
                 [Must be one of [CoNLL, CoNLL0203, NIF, TAC]]
 
         --print 
                 [Optional, default = false]
+```
+
+Example:
+```text
+ner-test --input-file ./output.conll --output-file ./ann.conll --gold ./output.conll --print
 ```
 
 ## REST API

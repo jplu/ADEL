@@ -43,9 +43,9 @@ public class ADELCommands {
   @ShellMethod("Recognize entities from an input text or an input text file")
   public final String ner(@ShellOption(defaultValue = "", help = "Text to process") final String text,
                           @ShellOption(defaultValue = "", help = "Text file to process") @File @MustExists @Readable final String inputFile,
-                          @ShellOption(defaultValue = "CoNLL") final @OneOf({"CoNLL", "NIF", "TAC"}) String outputFormat,
-                          @ShellOption(defaultValue = "") @File @Writable final String outputFile,
-                          @ShellOption(defaultValue = "", help = "Contains the text for the TAC formats") @File @Writable final String outputText,
+                          @ShellOption(defaultValue = "CoNLL") final @OneOf({"CoNLL", "NIF", "TAC"}) String format,
+                          @ShellOption(defaultValue = "") @Writable final String outputFile,
+                          @ShellOption(defaultValue = "", help = "Contains the text for the TAC formats") @Writable final String outputText,
                           @ShellOption(help = "Delete the file represented by --output-file", arity = 0) final boolean force,
                           @ShellOption(help = "Print the result", arity = 0) final boolean print,
                           @ShellOption(help = "Write the output of each annotator in a file", arity = 0) final boolean allAnnotators) throws IOException, MappingNotExistsException, TypeNotExistsException {
@@ -57,7 +57,7 @@ public class ADELCommands {
       return "You have to use the --print and/or --output-file options";
     }
     
-    if ("TAC".equals(outputFormat) && !outputFile.isEmpty() && outputText.isEmpty()) {
+    if ("TAC".equals(format) && !outputFile.isEmpty() && outputText.isEmpty()) {
       return "You have to give an output text file with the option --output-text";
     }
     
@@ -69,8 +69,13 @@ public class ADELCommands {
       return "The file " + outputText + " already exists, change the name or use the --force option to delete it";
     }
     
-    Files.deleteIfExists(Paths.get(outputFile));
-    Files.deleteIfExists(Paths.get(outputText));
+    if (!outputFile.isEmpty()) {
+      Files.deleteIfExists(Paths.get(outputFile));
+    }
+    
+    if (!outputText.isEmpty()) {
+      Files.deleteIfExists(Paths.get(outputText));
+    }
     
     String input = text;
     
@@ -80,7 +85,7 @@ public class ADELCommands {
     
     final Map<String, Document> document = this.pipeline.run(input);
     
-    if ("CoNLL".equals(outputFormat)) {
+    if ("CoNLL".equals(format)) {
       if (allAnnotators && document.size() > 1) {
         for (final Map.Entry<String, Document> entry : document.entrySet()) {
           if (!"adel".equals(entry.getKey())) {
@@ -101,10 +106,10 @@ public class ADELCommands {
         }
   
         conll.addDocument(document.get("adel"));
-  
+        
         conll.write(print);
       }
-    } else if ("nif".equals(outputFormat)) {
+    } else if ("NIF".equals(format)) {
       if (allAnnotators && document.size() > 1) {
         for (final Map.Entry<String, Document> entry : document.entrySet()) {
           if (!"adel".equals(entry.getKey())) {
@@ -164,23 +169,23 @@ public class ADELCommands {
                               @ShellOption(defaultValue = "", help = "Gold standard file for a TAC/NIF dataset") @MustExists @File @Readable final String gold,
                               @ShellOption @Writable final String outputFile,
                               @ShellOption(help = "Delete the file represented by --output-file", arity = 0) final boolean force,
-                              @ShellOption(defaultValue = "CoNLL") final @OneOf({"CoNLL", "CoNLL0203", "NIF", "TAC"}) String inputFormat,
+                              @ShellOption(defaultValue = "CoNLL") final @OneOf({"CoNLL", "CoNLL0203", "NIF", "TAC"}) String format,
                               @ShellOption(arity = 0) final boolean print) throws IOException {
     if (Files.exists(Paths.get(outputFile)) && !force) {
       return "The file " + outputFile + " already exists, change the name or use the --force option to delete it";
     }
     
-    if (("TAC".equals(inputFormat) || "NIF".equals(inputFormat)) && gold.isEmpty()) {
+    if (("TAC".equals(format) || "NIF".equals(format)) && gold.isEmpty()) {
       return "The gold standard file for the TAC/NIF dataset is missing. You must provide it with the option --gold";
     }
     
     Files.deleteIfExists(Paths.get(outputFile));
     
-    if ("CoNLL".equals(inputFormat) || "CoNLL0203".equals(inputFormat)) {
+    if ("CoNLL".equals(format) || "CoNLL0203".equals(format)) {
       final CoNLL conll;
       
       try {
-        if ("CoNLL0203".equals(inputFormat)) {
+        if ("CoNLL0203".equals(format)) {
           conll = new CoNLL(inputFile, outputFile, true);
         } else {
           conll = new CoNLL(inputFile, outputFile, false);
@@ -199,7 +204,7 @@ public class ADELCommands {
       conll.write(print);
       conll.scorerExtraction();
       conll.scorerNER();
-    } else if ("NIF".equals(inputFormat)) {
+    } else if ("NIF".equals(format)) {
       try {
         final NIF nif = new NIF(inputFile, outputFile);
         

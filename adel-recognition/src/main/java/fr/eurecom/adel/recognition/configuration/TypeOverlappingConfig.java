@@ -17,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TypeOverlappingConfig {
-  private @NotBlank @OneOf({"NEEL", "CoNLL", "DUL", "Musicbrainz", "DBpedia", "CoNLL0203"}) String to;
+  private @NotBlank @OneOf({"NEEL", "CoNLL", "DUL", "Musicbrainz", "DBpedia", "MUC"}) String to;
   private @UniqueElements @NotEmpty List<String> priority;
   private @NotBlank String method;
 }

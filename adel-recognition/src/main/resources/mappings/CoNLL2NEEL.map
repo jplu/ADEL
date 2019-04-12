@@ -1,4 +1,4 @@
 MISC	Thing
-PERSON	Person
-LOCATION	Location
-ORGANIZATION	Organization
+PER	Person
+LOC	Location
+ORG	Organization
