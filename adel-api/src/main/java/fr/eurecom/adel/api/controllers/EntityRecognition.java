@@ -52,7 +52,7 @@ public class EntityRecognition {
   
   @ApiOperation(value = "Entity recognition over a text", notes = "Entity recognition over a text", response = DocumentFormatter.class, tags = "entity-recognition")
   @ApiResponses(@ApiResponse(code = 200, message = "The process went well", response = DocumentFormatter.class))
-  @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public final DocumentFormatter recognize(@ApiParam(value = "Input of the recognize endpoint" ,required=true ) @RequestBody final DocumentConverter documentConverter) {
     if (documentConverter.getText() == null) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The text property is missing");
@@ -72,12 +72,12 @@ public class EntityRecognition {
   @ApiOperation(value = "Entity recognition over a NIF content", nickname = "recognizeNIF", notes = "Entity recognition over a NIF content")
   @ApiResponses(@ApiResponse(code = 200, message = "The process went well"))
   @PostMapping(value = "/nif", consumes = "application/x-turtle;charset=utf-8", produces = "application/x-turtle;charset=utf-8")
-  public String recognizeNIF(@ApiParam(value = "" ,required=true ) @RequestBody final String request) {
+  public String recognizeNIF(@ApiParam(required=true) @RequestBody final String request) {
     final NIF nif = new NIF();
     
     try {
       nif.setNIF(request);
-  
+      
       final List<String> documents = nif.documents();
       
       for (final String doc : documents) {

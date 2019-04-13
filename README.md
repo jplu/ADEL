@@ -9,7 +9,7 @@ the recognition is available, thus in case you want all the features, use the ve
 find in the release tab, or through the v1.0.0 tag.
 
 ## Used frameworks
-* Spring Boot 2.1.3
+* Spring Boot 2.1.4
 * Spring Cloud 2.1.1
 * Logbook Spring Boot 1.13.0
 * Lombok 1.18.6
@@ -20,9 +20,9 @@ find in the release tab, or through the v1.0.0 tag.
 * Javatuples 1.2
 * Asciitable 0.3.2
 * Apache Jena 3.10.0
-* Junit 5.4.0
+* Junit 5.5.0
 * Stanford CoreNLP 3.9.2
-* Guava 27.0.1
+* Guava 27.1
 * Jsoup 1.11.3
 * Spring Shell 2.0.1
 * Springfox 2.9.2
@@ -231,6 +231,11 @@ Example:
 ner --text "Barack Obama was born in Hawaii. He was elected president in 2008." --output-file ./output.conll --print
 ```
 
+Or with a NIF output:
+```text
+ner --text "Barack Obama was born in Hawaii. He was elected president in 2008." --output-file ./output.nif --print --output-format NIF
+```
+
 #### Ner-score
 This command allows you to score your recognition output.
 ```text
@@ -353,7 +358,12 @@ ran in a specific order:
 
 Example:
 ```text
-curl -XPOST -H "Content-Type: application/json" --data '{"text": "Barack Obama was born in Hawaii. He was elected president in 2008."}' http://localhost:9004/adel/api/v2/recognize/
+curl -XPOST -H "Content-Type: application/json" --data '{"text": "Barack Obama was born in Hawaii. He was elected president in 2008."}' http://localhost:9004/adel/api/v2/recognize
+```
+
+Or an example to apply ADEL over a NIF content:
+```text
+curl -XPOST -H "Content-Type: application/x-turtle;charset=utf-8" -d @output.nif http://localhost:9004/adel/api/v2/recognize/nif
 ```
 
 Optionally two others services can be ran as well:

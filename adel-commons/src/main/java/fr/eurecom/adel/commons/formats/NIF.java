@@ -152,10 +152,12 @@ public class NIF {
         "(STR(?anchorOf) AS ?txt) ?link (STR(?labelLink) AS ?label) (STR(?source) AS ?sc) where {" +
         "    ?document a nif:Context ." +
         "    ?document nif:isString ?docTxt ." +
-        "    ?mention nif:referenceContext ?document ." +
-        "    ?mention nif:beginIndex ?beginIndex ." +
-        "    ?mention nif:endIndex ?endIndex ." +
-        "    ?mention nif:anchorOf ?anchorOf ." +
+        "    OPTIONAL {" +
+        "        ?mention nif:referenceContext ?document ." +
+        "        ?mention nif:beginIndex ?beginIndex ." +
+        "        ?mention nif:endIndex ?endIndex ." +
+        "        ?mention nif:anchorOf ?anchorOf ." +
+        "    }" +
         "    OPTIONAL {" +
         "        ?mention itsrdf:taIdentRef ?entity ." +
         "    }" +
@@ -187,28 +189,44 @@ public class NIF {
         final String doc = solTxt.get("doc").toString();
         final String[] documentURI = solTxt.get("document").toString().split("/");
         final String id = documentURI[documentURI.length - 1].split("#")[0];
-        String type = solTxt.get("type").toString();
-        
-        if (!type.contains("dbpedia")) {
-          type = type.substring(type.lastIndexOf('/') + 1);
-        }
-        
-        final Entity entity = Entity.builder().phrase(solTxt.get("txt").toString())
-                                              .cleanPhrase(solTxt.get("txt").toString())
-                                              .startOffset(Integer.parseInt(solTxt.get("begin").toString()))
-                                              .endOffset(Integer.valueOf(solTxt.get("end").toString()))
-                                              .type(type).build();
-        if (gold.isEmpty()) {
-          if (this.annotatedDocuments.containsKey(doc)) {
-            this.annotatedDocuments.get(doc).getValue1().add(entity);
+
+        if (solTxt.get("txt") != null) {
+          String type = solTxt.get("type").toString();
+
+          if (!type.contains("dbpedia")) {
+            type = type.substring(type.lastIndexOf('/') + 1);
+          }
+
+          final Entity entity = Entity.builder()
+              .phrase(solTxt.get("txt").toString())
+              .cleanPhrase(solTxt.get("txt").toString())
+              .startOffset(Integer.parseInt(solTxt.get("begin").toString()))
+              .endOffset(Integer.valueOf(solTxt.get("end").toString()))
+              .type(type)
+              .build();
+  
+          if (gold.isEmpty()) {
+            if (this.annotatedDocuments.containsKey(doc)) {
+              this.annotatedDocuments.get(doc).getValue1().add(entity);
+            } else {
+              this.annotatedDocuments.put(doc, Pair.with(id,
+                  new ArrayList<>(Collections.singleton(entity))));
+            }
           } else {
-            this.annotatedDocuments.put(doc, Pair.with(id, new ArrayList<>(Collections.singleton(entity))));
+            if (this.goldDocuments.containsKey(doc)) {
+              this.goldDocuments.get(doc).getValue1().add(entity);
+            } else {
+              this.goldDocuments.put(doc, Pair.with(id,
+                  new ArrayList<>(Collections.singleton(entity))));
+            }
           }
         } else {
-          if (this.goldDocuments.containsKey(doc)) {
-            this.goldDocuments.get(doc).getValue1().add(entity);
+          if (gold.isEmpty()) {
+            this.annotatedDocuments.put(doc, Pair.with(id,
+                new ArrayList<>(Collections.emptyList())));
           } else {
-            this.goldDocuments.put(doc, Pair.with(id, new ArrayList<>(Collections.singleton(entity))));
+            this.goldDocuments.put(doc, Pair.with(id,
+                new ArrayList<>(Collections.emptyList())));
           }
         }
       }
@@ -216,21 +234,25 @@ public class NIF {
   }
   
   public final List<String> documents() {
+    if (this.goldDocuments.isEmpty()) {
+      return new ArrayList<>(this.annotatedDocuments.keySet());
+    }
+    
     return new ArrayList<>(this.goldDocuments.keySet());
   }
   
   public final void addDocument(final Document document) {
-    final String id;
+    String id = UUID.randomUUID().toString();
     
     if (this.goldDocuments.containsKey(document.getText())) {
       id = this.goldDocuments.get(document.getText()).getValue0();
-    } else {
-      id = UUID.randomUUID().toString();
+    }
+  
+    if (this.annotatedDocuments.containsKey(document.getText())) {
+      id = this.annotatedDocuments.get(document.getText()).getValue0();
     }
     
-    if (!this.annotatedDocuments.containsKey(document.getText())) {
-      this.annotatedDocuments.put(document.getText(), Pair.with(id, document.getEntities()));
-    }
+    this.annotatedDocuments.put(document.getText(), Pair.with(id, document.getEntities()));
   }
   
   private Model writeDocument(final String text, final String id, final Iterable<Entity> entities) {
