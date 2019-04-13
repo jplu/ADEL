@@ -34,7 +34,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v2/recognize")
-@Api(description = "Set of endpoints for entity recognition.")
+@Api
 public class EntityRecognition {
   private RecognitionPipeline pipeline;
 
@@ -53,7 +53,7 @@ public class EntityRecognition {
   @ApiOperation(value = "Entity recognition over a text", notes = "Entity recognition over a text", response = DocumentFormatter.class, tags = "entity-recognition")
   @ApiResponses(@ApiResponse(code = 200, message = "The process went well", response = DocumentFormatter.class))
   @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public final DocumentFormatter recognize(@ApiParam(value = "Input of the recognize endpoint" ,required=true ) @RequestBody final DocumentConverter documentConverter) {
+  public final DocumentFormatter recognize(@ApiParam(value = "Input of the recognize endpoint", required=true) @RequestBody final DocumentConverter documentConverter) {
     if (documentConverter.getText() == null) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The text property is missing");
     }

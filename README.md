@@ -20,7 +20,7 @@ find in the release tab, or through the v1.0.0 tag.
 * Javatuples 1.2
 * Asciitable 0.3.2
 * Apache Jena 3.10.0
-* Junit 5.5.0
+* Junit 5.4.2
 * Stanford CoreNLP 3.9.2
 * Guava 27.1
 * Jsoup 1.11.3
