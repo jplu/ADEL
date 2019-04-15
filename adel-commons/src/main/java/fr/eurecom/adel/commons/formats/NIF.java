@@ -189,7 +189,7 @@ public class NIF {
         final String doc = solTxt.get("doc").toString();
         final String[] documentURI = solTxt.get("document").toString().split("/");
         final String id = documentURI[documentURI.length - 1].split("#")[0];
-
+        
         if (solTxt.get("txt") != null) {
           String type = solTxt.get("type").toString();
 

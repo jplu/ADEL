@@ -226,14 +226,19 @@ OPTIONS
                 [Optional, default = false]
 ```
 
-Example:
+Example with a CoNLL output:
 ```text
 ner --text "Barack Obama was born in Hawaii. He was elected president in 2008." --output-file ./output.conll --print
 ```
 
 Or with a NIF output:
 ```text
-ner --text "Barack Obama was born in Hawaii. He was elected president in 2008." --output-file ./output.nif --print --output-format NIF
+ner --text "Barack Obama was born in Hawaii. He was elected president in 2008." --output-file ./output.nif --print --format NIF
+```
+
+Or with a TAC output:
+```text
+ner --text "Barack Obama was born in Hawaii. He was elected president in 2008." --output-file ./output.tac --print --format TAC --output-text ./output.txt
 ```
 
 #### Ner-score
@@ -274,9 +279,19 @@ Before to run the example, apply the following command line in a standard shell:
 cut -d' ' -f2 output.conll | paste -d' ' output.conll - | sed 's/^[ \t]*//;s/[ \t]*$//' > new_output.conll
 ```
 
-And then in the ADEL shell, as example:
+And then in the ADEL shell, as example with a CoNLL output:
 ```text
 ner-score --input-file ./new_output.conll
+```
+
+Or with a NIF output:
+```text
+ner-score --input-file ./output.nif --gold ./output.nif --format NIF
+```
+
+Or with a TAC output:
+```text
+ner-score --input-file ./output.tac --gold ./output.tac --format TAC
 ```
 
 #### Ner-test
@@ -323,10 +338,21 @@ OPTIONS
                 [Optional, default = false]
 ```
 
-Example:
+Example with a CoNLL dataset:
 ```text
-ner-test --input-file ./output.conll --output-file ./ann.conll --gold ./output.conll --print
+ner-test --input-file ./output.conll --output-file ./ann.conll --print
 ```
+
+Or with a NIF dataset:
+```text
+ner-test --input-file ./output.nif --output-file ./ann.nif --format NIF --print --gold ./output.nif
+```
+
+Or with a TAC dataset:
+```text
+ner-test --input-file ./output.txt --output-file ./ann.tac --format TAC --print --gold ./output.tac
+```
+
 
 ## REST API
 The second way to use ADEL is through a Web API. In order to get a working API, services has to be
