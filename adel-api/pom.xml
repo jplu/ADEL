@@ -128,30 +128,16 @@
               <alias>${project.artifactId}</alias>
               <name>jplu/${project.artifactId}-${lang}:${project.version}</name>
               <build>
-                <from>sgrio/java-oracle:jdk_11_alpine</from>
+                <from>sgrio/java:jdk_11_alpine</from>
                 <maintainer>Julien Plu</maintainer>
                 <assembly>
                   <descriptor>docker-assembly.xml</descriptor>
                 </assembly>
-                <ports>
-                  <port>8080</port>
-                </ports>
                 <workdir>/maven</workdir>
                 <cmd>
                   <shell>java -jar -Xmx4g ${project.build.finalName}.jar --spring.profiles.active=${lang}</shell>
                 </cmd>
               </build>
-              <run>
-                <ports>
-                  <port>8080:8080</port>
-                </ports>
-                <wait>
-                  <http>
-                    <url>http://localhost:8080/health</url>
-                  </http>
-                  <time>700000</time>
-                </wait>
-              </run>
             </image>
           </images>
         </configuration>

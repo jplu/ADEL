@@ -48,7 +48,7 @@ application (adel-api, adel-api-gateway or adel-shell). If everything goes well,
 following services at given location:
 * Discovery Server - [http://localhost:8761]()
 * Config Server - [http://localhost:8888]()
-* API Gateway - [http://localhost:8080]()
+* API Gateway - [http://localhost:9004]()
 * ADEL API - random port, check Eureka Dashboard (Discovery Server)
 * Admin Server (Spring Boot Admin) - [http://localhost:9090]()
 * Hystrix Dashboard for Circuit Breaker pattern - [http://localhost:7979]() - On the home page is a 
@@ -406,32 +406,27 @@ Optionally two others services can be ran as well:
     ```
 
 The documentation of the API is automatically available on the
-[root path](http://localhost:8080/adel) through Swagger UI.
+[root path](http://localhost:9004/adel) through Swagger UI.
 
-## Dockerize ADEL (work not yet stable, on going)
-A Docker image of the REST API of ADEL can be created with the following command line:
+## Dockerizing ADEL
+The Docker images of ADEL can be created with the following command line:
 ```text
-cd adel-api
 mvn docker:build
 ```
 
-By default the Docker image will run the *en* profile. To create a Docker image with another 
-profile you have to specify the name of the profile in the build command line:
+By default the Docker image for the API will run the *en* profile. To create a Docker image of 
+the API with another profile you have to specify the name of the profile in the build command line:
 ```text
-cd adel-api
 mvn docker:build -Dlang <profile>
 ```
 
 Where you have to replace `<profile>` with the name of the wanted profile. Finally, you can run 
-a container of this Docker image, either with Maven:
-```text
-cd adel-api
-mvn docker:start
+ADEL with the following Docker command lines (here with the *en* profile):
 ```
-
-Or with the usual Docker command line:
-```
-docker run -d -p 8080:8080 jplu/adel-api-en:2.0.0 adel-en
+docker run -d --network host jplu/adel-config-server:2.0.0 adel-config-server
+docker run -d --network host jplu/adel-discovery-server:2.0.0 adel-discovery-server
+docker run -d --network host jplu/adel-api-en:2.0.0 adel-en
+docker run -d --network host jplu/adel-api-gateway:2.0.0 adel-api-gateway
 ```
 
 ## Opening an issue
