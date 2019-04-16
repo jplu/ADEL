@@ -126,7 +126,7 @@ This example of profile contains the following properties (they are all mandator
 In order to make your own ADEL profile you need to follow the Spring Boot profile principle as 
 detailed in their [documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html).
 You can take as example the existing profiles in the example [profile file](https://github.com/jplu/ADEL-config/blob/master/adel.yaml).
-All the configuration files are grouped into in separated [Git repository](https://github.com/jplu/ADEL-config)
+All the configuration files are grouped into a separated [Git repository](https://github.com/jplu/ADEL-config)
 and fetched by the config-server module.
 
 ## Shell Usage
