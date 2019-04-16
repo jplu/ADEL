@@ -12,9 +12,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @SpringBootApplication(scanBasePackages = "fr.eurecom.adel")
 @EnableDiscoveryClient
-public class AdelAPIApplication {
+public class ADELAPIApplication {
 	public static void main(final String... args) {
-		SpringApplication.run(AdelAPIApplication.class, args);
+		SpringApplication.run(ADELAPIApplication.class, args);
 	}
 	
 	@Bean

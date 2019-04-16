@@ -9,8 +9,8 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
  */
 @EnableEurekaServer
 @SpringBootApplication
-public class AdelDiscoveryServer {
+public class ADELDiscoveryServer {
   public static void main(String[] args) {
-    SpringApplication.run(AdelDiscoveryServer.class, args);
+    SpringApplication.run(ADELDiscoveryServer.class, args);
   }
 }

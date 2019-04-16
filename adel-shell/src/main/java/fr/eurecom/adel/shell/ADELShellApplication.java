@@ -6,8 +6,8 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan("fr.eurecom.adel")
-public class AdelShellApplication {
+public class ADELShellApplication {
 	public static void main(final String... args) {
-    SpringApplication.run(AdelShellApplication.class, args);
+    SpringApplication.run(ADELShellApplication.class, args);
 	}
 }
