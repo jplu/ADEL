@@ -44,8 +44,8 @@ public class ADELCommands {
   public final String ner(@ShellOption(defaultValue = "", help = "Text to process") final String text,
                           @ShellOption(defaultValue = "", help = "Text file to process") @File @MustExists @Readable final String inputFile,
                           @ShellOption(defaultValue = "CoNLL") final @OneOf({"CoNLL", "NIF", "TAC"}) String format,
-                          @ShellOption(defaultValue = "") @Writable final String outputFile,
-                          @ShellOption(defaultValue = "", help = "Contains the text for the TAC formats") @Writable final String outputText,
+                          @ShellOption(defaultValue = "") @File @Writable final String outputFile,
+                          @ShellOption(defaultValue = "", help = "Contains the text for the TAC formats") @File @Writable final String outputText,
                           @ShellOption(help = "Delete the file represented by --output-file", arity = 0) final boolean force,
                           @ShellOption(help = "Print the result", arity = 0) final boolean print,
                           @ShellOption(help = "Write the output of each annotator in a file", arity = 0) final boolean allAnnotators) throws IOException, MappingNotExistsException, TypeNotExistsException {
