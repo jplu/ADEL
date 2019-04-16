@@ -108,7 +108,7 @@ This example of profile contains the following properties (they are all mandator
         - *tags*: only property to be optional. Represents the list of entity types to keep. If 
         absent all the entity types will be kept.
         - *from*: the vocabulary that the used model will provide (available: CoNLL, DBpedia, 
-        Musicbrainz, NEEL, CoNLL0203, DUL)
+        Musicbrainz, NEEL, MUC, DUL)
         - *tokenizer*: says if this annotator has to be used as tokenizer or not (only one allowed)
     - *mentionoverlapping*: is the name of the approach used to resolve the overlaps over the 
     mentions
@@ -117,7 +117,7 @@ This example of profile contains the following properties (they are all mandator
         - *method*: is the name of the approach used to resolve the overlaps over the types 
         (available: MajorityVoting)
         - *to*: the vocabulary into which all the entity types will be translated (available: CoNLL,
-        DBpedia, Musicbrainz, NEEL, CoNLL0203, DUL)
+        DBpedia, Musicbrainz, NEEL, MUC, DUL)
         - *priority*: a list of the annotators name that represents the priority order in which 
         the types are kept. It means that the types given by the first annotator in the list will
         the more kept and the other will be ignored.
