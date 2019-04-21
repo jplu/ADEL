@@ -17,7 +17,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>11</java.version>
-    <lang>en</lang>
+    <profile>en</profile>
   </properties>
 
   <dependencies>
@@ -41,6 +41,17 @@
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
       <version>2.1.1.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-aop</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.retry</groupId>
+      <artifactId>spring-retry</artifactId>
+      <version>1.2.4.RELEASE</version>
     </dependency>
 
     <dependency>
@@ -126,7 +137,7 @@
           <images>
             <image>
               <alias>${project.artifactId}</alias>
-              <name>jplu/${project.artifactId}-${lang}:${project.version}</name>
+              <name>jplu/${project.artifactId}-${profile}:${project.version}</name>
               <build>
                 <from>sgrio/java:jdk_11_alpine</from>
                 <maintainer>Julien Plu</maintainer>
@@ -134,8 +145,11 @@
                   <descriptor>docker-assembly.xml</descriptor>
                 </assembly>
                 <workdir>/maven</workdir>
+                <runCmds>
+                  <runCmd>wget -O apm-agent.jar https://search.maven.org/remotecontent?filepath=co/elastic/apm/elastic-apm-agent/1.6.0/elastic-apm-agent-1.6.0.jar</runCmd>
+                </runCmds>
                 <cmd>
-                  <shell>java -jar -Xmx4g ${project.build.finalName}.jar --spring.profiles.active=${lang}</shell>
+                  <shell>java -javaagent:/maven/apm-agent.jar -jar -Xmx4g ${project.build.finalName}.jar --spring.profiles.active=${profile}</shell>
                 </cmd>
               </build>
             </image>

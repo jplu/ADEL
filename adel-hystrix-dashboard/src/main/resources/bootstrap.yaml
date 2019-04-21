@@ -2,5 +2,11 @@ spring:
   cloud:
     config:
       uri: ${CONFIG_URI:http://localhost:8888}
+      failFast: true
+      retry:
+        initialInterval: 3000
+        multiplier: 1.3
+        maxInterval: 5000
+        maxAttempts: 20
   application:
     name: hystrix-dashboard

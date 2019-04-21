@@ -21,7 +21,6 @@ public class ADELAPIGateway {
   
   @Bean
   public LanguageFilter languageFilter() {
-    System.out.println("coucoucoucoucou");
     return new LanguageFilter();
   }
 }

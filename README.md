@@ -419,7 +419,7 @@ mvn docker:build
 By default the Docker image for the API will run the *en* profile. To create a Docker image of 
 the API with another profile you have to specify the name of the profile in the build command line:
 ```text
-mvn docker:build -Dlang <profile>
+mvn docker:build -Dprofile <profile>
 ```
 
 Where you have to replace `<profile>` with the name of the wanted profile. Finally, you can run 
