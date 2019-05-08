@@ -58,7 +58,7 @@ The fat JAR will be available in the *target* directory.
 # Usage
 
 ```
-usage: java --add-modules java.xml.bind -jar target/adel-1.0-SNAPSHOT.jar
+usage: java -jar target/adel-1.0-SNAPSHOT.jar
        [-h] [-v] {server,check,extract,link,nerd} ...
 
 positional arguments:
@@ -81,7 +81,7 @@ The first way is via CLI with six possible sub-commands, **extract**, **link** a
 To use the **extract** CLI:
 
 ```
-sage: java --add-modules java.xml.bind -jar target/adel-1.0-SNAPSHOT.jar
+usage: java -jar target/adel-1.0-SNAPSHOT.jar
        extract [-of {nif,brat,conll,naf}] [-if {raw,srt,ttml}] [-s SETTING] [-l LANG] [-o OFILE] [-n {true,false}] [-h] (-t TEXT | -i IFILE | -u URL) [file]
 
 Only extract and type entities
@@ -116,7 +116,7 @@ inputs:
 To use the **link** CLI:
 
 ```
-usage: java --add-modules java.xml.bind -jar target/adel-1.0-SNAPSHOT.jar
+usage: java -jar target/adel-1.0-SNAPSHOT.jar
        link [-f {nif,brat,tac,naf}] [-s SETTING] [-l LANG] [-o OFILE] [-n {true,false}] [-h] (-t TEXT | -i IFILE | -u URL) [file]
 
 Only linking entities
@@ -149,7 +149,7 @@ inputs:
 To use the **nerd** CLI:
 
 ```
-usage: java --add-modules java.xml.bind -jar target/adel-1.0-SNAPSHOT.jar
+usage: java -jar target/adel-1.0-SNAPSHOT.jar
        nerd [-of {nif,brat,tac,naf}] [-if {raw,srt,ttml}] [-s SETTING] [-l LANG] [-o OFILE] [-n {true,false}] [-h] (-t TEXT | -i IFILE | -u URL) [file]
 
 Extract, type and link entities
@@ -184,7 +184,7 @@ inputs:
 The second way is via a Web API:
 
 ```
-usage: java --add-modules java.xml.bind -jar target/adel-1.0-SNAPSHOT.jar
+usage: java -jar target/adel-1.0-SNAPSHOT.jar
        server [-h] [file]
 
 Runs the Dropwizard application as an HTTP server
