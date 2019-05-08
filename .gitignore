@@ -22,6 +22,8 @@ hs_err_pid*
 *.pdf
 *.json
 */indexing/*.txt
+*.txt
+*.nif
 dependency-reduced-pom.xml
 untitled.xml
 .DS_Store
