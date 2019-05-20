@@ -9,26 +9,26 @@ the recognition is available, thus in case you want all the features, use the ve
 find in the release tab, or through the v1.0.0 tag.
 
 ## Used frameworks
-* Spring Boot 2.1.4
-* Spring Cloud 2.1.1
+* Spring Boot 2.1.5
+* Spring Cloud 2.1.2
 * Logbook Spring Boot 1.13.0
-* Lombok 1.18.6
+* Lombok 1.18.8
 * Reflections 0.9.11
 * Hibernate Validator 6.1.0
 * Twitter Text 3.0.1
 * Emoji Java 4.0.2
 * Javatuples 1.2
 * Asciitable 0.3.2
-* Apache Jena 3.10.0
+* Apache Jena 3.11.0
 * Junit 5.4.2
 * Stanford CoreNLP 3.9.2
 * Guava 27.1
-* Jsoup 1.11.3
+* Jsoup 1.12.1
 * Spring Shell 2.0.1
 * Springfox 2.9.2
 
 ## Requirements
-* Java 11 and earlier
+* Java 12 and earlier
 * Maven 3.5.0 and earlier
 * Docker 1.9 and earlier (necessary only if you want to dockerize ADEL)
 

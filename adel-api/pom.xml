@@ -16,7 +16,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>11</java.version>
+    <java.version>12</java.version>
     <profile>en</profile>
   </properties>
 
@@ -34,7 +34,7 @@
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-config</artifactId>
-      <version>2.1.1.RELEASE</version>
+      <version>2.1.2.RELEASE</version>
     </dependency>
 
     <dependency>
@@ -69,7 +69,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.6</version>
+      <version>1.18.8</version>
       <scope>provided</scope>
     </dependency>
 
@@ -88,7 +88,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
-      <version>2.9.8</version>
+      <version>2.9.9</version>
     </dependency>
 
     <dependency>
@@ -132,21 +132,22 @@
       <plugin>
         <groupId>io.fabric8</groupId>
         <artifactId>docker-maven-plugin</artifactId>
-        <version>0.29.0</version>
+        <version>0.30.0</version>
         <configuration>
           <images>
             <image>
               <alias>${project.artifactId}</alias>
               <name>jplu/${project.artifactId}-${profile}:${project.version}</name>
               <build>
-                <from>sgrio/java:jdk_11_alpine</from>
+                <from>openjdk:oracle</from>
                 <maintainer>Julien Plu</maintainer>
                 <assembly>
                   <descriptor>docker-assembly.xml</descriptor>
                 </assembly>
                 <workdir>/maven</workdir>
                 <runCmds>
-                  <runCmd>wget -O apm-agent.jar https://search.maven.org/remotecontent?filepath=co/elastic/apm/elastic-apm-agent/1.6.0/elastic-apm-agent-1.6.0.jar</runCmd>
+                  <runCmd>yum install -y wget</runCmd>
+                  <runCmd>wget -O apm-agent.jar https://search.maven.org/remotecontent?filepath=co/elastic/apm/elastic-apm-agent/1.6.1/elastic-apm-agent-1.6.1.jar</runCmd>
                 </runCmds>
                 <cmd>
                   <shell>java -javaagent:/maven/apm-agent.jar -jar -Xmx4g ${project.build.finalName}.jar --spring.profiles.active=${profile}</shell>
