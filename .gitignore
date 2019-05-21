@@ -20,7 +20,6 @@ cmake-build-release/
 out/
 
 # Maven ignores
-target/
 dependency-reduced-pom.xml
 
 # mpeltonen/sbt-idea plugin
