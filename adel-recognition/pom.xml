@@ -5,9 +5,7 @@
   <artifactId>adel-recognition</artifactId>
   <version>2.0.0</version>
   <name>adel-recognition</name>
-  <url>http://maven.apache.org</url>
-  <packaging>jar</packaging>
-  <description>Entity Recognition system for ADEL</description>
+  <url>http://adel.eurecom.fr</url>
 
   <parent>
     <groupId>fr.eurecom.adel</groupId>

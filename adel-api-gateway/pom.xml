@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>adel-api-gateway</artifactId>
   <version>2.0.0</version>
-  <name>adel-api</name>
+  <name>adel-api-gateway</name>
   <url>http://adel.eurecom.fr</url>
 
   <parent>
