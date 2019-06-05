@@ -22,7 +22,7 @@ public class URLValidator implements ConstraintValidator<URL, String> {
     if (t.startsWith("classpath")) {
       return this.loadProperties(t.replaceAll("classpath:", ""), Thread.currentThread().getContextClassLoader());
     }
-    
+    /*
     try {
       final java.net.URL url = new java.net.URL(t);
       final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -34,7 +34,8 @@ public class URLValidator implements ConstraintValidator<URL, String> {
       return (responseCode >= 200 && responseCode <= 399);
     } catch (final IOException ex) {
       return false;
-    }
+    }*/
+    return true;
   }
   
   private boolean loadProperties(final String file, final ClassLoader loader) {

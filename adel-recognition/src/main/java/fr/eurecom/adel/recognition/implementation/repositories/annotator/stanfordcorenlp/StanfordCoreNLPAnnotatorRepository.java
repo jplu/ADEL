@@ -19,10 +19,10 @@ import fr.eurecom.adel.commons.validators.Name;
  * @author Julien Plu on 17/11/2018.
  */
 @Name(name = "StanfordCoreNLP")
-public class StanfordCoreNlpAnnotatorRepository implements AnnotatorRepository {
+public class StanfordCoreNLPAnnotatorRepository implements AnnotatorRepository {
   private final StanfordCoreNLP pipeline;
   
-  public StanfordCoreNlpAnnotatorRepository(final String path) {
+  public StanfordCoreNLPAnnotatorRepository(final String path) {
     this.pipeline = new StanfordCoreNLP(path.replaceAll("classpath:", ""));
   }
   

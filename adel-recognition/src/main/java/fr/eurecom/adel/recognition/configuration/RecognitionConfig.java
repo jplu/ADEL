@@ -36,11 +36,6 @@ public class RecognitionConfig {
   private @NotEmpty String mentionoverlapping;
   
   // Used in ValidationMessages.properties
-  public final String annotatorsContent() {
-    return this.annotators.stream().map(AnnotatorConfig::getAnnotator).collect(Collectors.toList()).toString();
-  }
-  
-  // Used in ValidationMessages.properties
   public final String implementationNames() {
     final Collection<String> names = new ArrayList<>();
     
@@ -54,6 +49,11 @@ public class RecognitionConfig {
     names.add(this.tweetnormalization.getHashtag());
     
     return names.toString();
+  }
+  
+  // Used in ValidationMessages.properties
+  public final String getPriority() {
+    return this.typeoverlapping.getPriority().toString();
   }
   
   // Used in ValidationMessages.properties
