@@ -19,7 +19,7 @@ find in the release tab, or through the v1.0.0 tag.
 * Emoji Java 4.0.2
 * Javatuples 1.2
 * Asciitable 0.3.2
-* Apache Jena 3.11.0
+* Apache Jena 3.12.0
 * Junit 5.4.2
 * Stanford CoreNLP 3.9.2
 * Guava 27.1
@@ -56,8 +56,9 @@ form where you can enter the URL for an event stream to monitor, for example the
 running locally: `http://localhost:8080/actuator/hystrix.stream`.
 
 ## NER Annotators
-Currently only [Stanford CoreNLP](https://stanfordnlp.github.io/CoreNLP/) is available as NER 
-annotator.
+The available NER annotators are:
+* [Stanford CoreNLP](https://stanfordnlp.github.io/CoreNLP/)
+* REST JSON API for annotators such as [https://github.com/jplu/BNER](BNER) or [https://github.com/jplu/DeepNER](DeepNER)
 
 ### Add a new annotator
 To add a new annotator you have to create a class in the [implementation package](adel-recognition/src/main/java/fr/eurecom/adel/recognition/implementation)
@@ -65,6 +66,63 @@ in the [adel-recognition](adel-recognition) module. This class has to be annotat
 annotation `@Name` in order to make it available with this name in the classpath. Next, your 
 class has to implements the `AnnotatorRepository` [interface](adel-recognition/src/main/java/fr/eurecom/adel/recognition/domain/repositories/AnnotatorRepository.java).
 Once your classe has been implemented and named, you can use this name in your profile.
+
+### Make an annotator JSON API compliant
+The input/output of the REST API of your annotator have to take/retrieve a specific JSON. For 
+example, the following text:
+```
+Barack Obama was born in Hawaii. He was elected president in 2008.
+```
+
+The JSON of the input query must be:
+```json
+{
+  "text": "Barack Obama was born in Hawaii. He was elected president in 2008."
+}
+```
+
+And the JSON of the output have to respect the following schema:
+```json
+{
+  "entities": [
+    {
+      "phrase":"Barack Obama",
+      "cleanPhrase":"Barack Obama",
+      "type":"PERSON",
+      "startOffset":0,
+      "endOffset":12
+    },
+    {
+      "phrase":"Hawaii",
+      "cleanPhrase":"Hawaii",
+      "type":"LOCATION",
+      "startOffset":25,
+      "endOffset":31
+    },
+    {
+      "phrase":"He",
+      "cleanPhrase":"Barack Obama",
+      "type":"PERSON",
+      "startOffset":33,
+      "endOffset":35
+    },
+    {
+      "phrase":"president",
+      "cleanPhrase":"president",
+      "type":"MISC",
+      "startOffset":48,
+      "endOffset":57
+    },
+    {
+      "phrase":"2008",
+      "cleanPhrase":"2008",
+      "type":"DATE",
+      "startOffset":61,
+      "endOffset":65
+    }
+  ]
+}
+```
 
 ## ADEL profile
 A profile for ADEL has to be in YAML or usual properties file.

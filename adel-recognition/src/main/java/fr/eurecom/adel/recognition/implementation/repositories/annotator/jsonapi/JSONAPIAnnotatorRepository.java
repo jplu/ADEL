@@ -1,16 +1,21 @@
 package fr.eurecom.adel.recognition.implementation.repositories.annotator.jsonapi;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.NotImplementedException;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,43 +31,51 @@ import fr.eurecom.adel.recognition.domain.repositories.AnnotatorRepository;
 @Name(name = "JSONAPI")
 public class JSONAPIAnnotatorRepository implements AnnotatorRepository {
   private static final Logger logger = LoggerFactory.getLogger(JSONAPIAnnotatorRepository.class);
-  private final HttpURLConnection con;
+  private final String address;
   
-  public JSONAPIAnnotatorRepository(final String address) throws IOException {
-    final URL url = new URL(address);
-    this.con = (HttpURLConnection) url.openConnection();
-    this.con.setRequestMethod("POST");
-    this.con.setRequestProperty("Content-Type", "application/json; utf-8");
-    this.con.setRequestProperty("Accept", "application/json");
-    this.con.setDoOutput(true);
+  public JSONAPIAnnotatorRepository(final String newAddress) {
+    this.address = newAddress;
   }
   
   @Override
   public final List<Entity> annotate(final AnnotatorConfig config, final String text) {
-    try(final OutputStream os = this.con.getOutputStream()) {
-      final String jsonInputString = "{\"name\": " + text + "\"}";
-      final byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+    final HttpClient httpClient = HttpClientBuilder.create().build();
+    final List<Entity> recognizedEntities = new ArrayList<>();
+    
+    try {
+      final HttpPost post = new HttpPost(this.address);
+      final String inputJson = "{\"text\": \"" + text + "\"}";
+      final HttpEntity requestEntity = new StringEntity(inputJson, ContentType.APPLICATION_JSON);
       
-      os.write(input, 0, input.length);
-    } catch (final IOException ex) {
-      JSONAPIAnnotatorRepository.logger.error("", ex);
-    }
+      post.setEntity(requestEntity);
+      
+      final HttpResponse response = httpClient.execute(post);
+
+      if (response.getEntity().getContent() != null) {
+        final String answer = IOUtils.toString(response.getEntity().getContent(),
+            Charset.forName("UTF-8"));
+        final JSONObject json = new JSONObject(answer);
+        final JSONArray entities = json.getJSONArray("entities");
+        
   
-    try(final BufferedReader br = new BufferedReader(
-        new InputStreamReader(this.con.getInputStream(), StandardCharsets.UTF_8))) {
-      final StringBuilder response = new StringBuilder();
-      String responseLine;
-      
-      while ((responseLine = br.readLine()) != null) {
-        response.append(responseLine.trim());
+        for (int i = 0; i < entities.length(); i++) {
+          final JSONObject entity = (JSONObject) entities.get(i);
+          
+          recognizedEntities.add(Entity.builder()
+              .phrase((String) entity.get("phrase"))
+              .cleanPhrase((String) entity.get("phrase"))
+              .type((String) entity.get("type"))
+              .startOffset((Integer) entity.get("startOffset"))
+              .endOffset((Integer) entity.get("endOffset"))
+              .build());
+        }
+        
       }
-  
-      JSONAPIAnnotatorRepository.logger.info("{}", response);
     } catch (final IOException ex) {
-      JSONAPIAnnotatorRepository.logger.error("", ex);
+      JSONAPIAnnotatorRepository.logger.error("Issue to connect to {}", this.address , ex);
     }
-  
-    return new ArrayList<>();
+    
+    return recognizedEntities;
   }
   
   @Override
