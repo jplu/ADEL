@@ -16,7 +16,7 @@ find in the release tab, or through the v1.0.0 tag.
 * Reflections 0.9.11
 * Hibernate Validator 6.1.0
 * Twitter Text 3.0.1
-* Emoji Java 4.0.2
+* Emoji Java 4.0.3
 * Javatuples 1.2
 * Asciitable 0.3.2
 * Apache Jena 3.12.0
