@@ -9,9 +9,9 @@ the recognition is available, thus in case you want all the features, use the ve
 find in the release tab, or through the v1.0.0 tag.
 
 ## Used frameworks
-* Spring Boot 2.1.5
-* Spring Cloud 2.1.2
-* Logbook Spring Boot 1.13.0
+* Spring Boot 2.1.7
+* Spring Cloud 2.1.3
+* Logbook Spring Boot 2.0.0
 * Lombok 1.18.8
 * Reflections 0.9.11
 * Hibernate Validator 6.1.0
@@ -20,9 +20,9 @@ find in the release tab, or through the v1.0.0 tag.
 * Javatuples 1.2
 * Asciitable 0.3.2
 * Apache Jena 3.12.0
-* Junit 5.4.2
+* Junit 5.5.1
 * Stanford CoreNLP 3.9.2
-* Guava 27.1
+* Guava 28.1
 * Jsoup 1.12.1
 * Spring Shell 2.0.1
 * Springfox 2.9.2

@@ -4,27 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>adel-config-server</artifactId>
-  <version>2.0.0</version>
+  <version>${revision}</version>
   <name>adel-config-server</name>
   <url>http://adel.eurecom.fr</url>
 
   <parent>
     <groupId>fr.eurecom.adel</groupId>
     <artifactId>adel-pom</artifactId>
-    <version>2.0.0</version>
+    <version>${revision}</version>
   </parent>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>12</java.version>
-  </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-config-server</artifactId>
-      <version>2.1.2.RELEASE</version>
+      <version>${spring.cloud.config.server.version}</version>
     </dependency>
   </dependencies>
 
@@ -38,12 +32,12 @@
       <plugin>
         <groupId>io.fabric8</groupId>
         <artifactId>docker-maven-plugin</artifactId>
-        <version>0.30.0</version>
+        <version>${docker.maven.plugin.version}</version>
         <configuration>
           <images>
             <image>
               <alias>${project.artifactId}</alias>
-              <name>jplu/${project.artifactId}:${project.version}</name>
+              <name>jplu/${project.artifactId}:${revision}</name>
               <build>
                 <from>openjdk:oracle</from>
                 <maintainer>Julien Plu</maintainer>

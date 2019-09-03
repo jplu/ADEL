@@ -3,80 +3,81 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>adel-recognition</artifactId>
-  <version>2.0.0</version>
+  <version>${revision}</version>
   <name>adel-recognition</name>
   <url>http://adel.eurecom.fr</url>
 
   <parent>
     <groupId>fr.eurecom.adel</groupId>
     <artifactId>adel-pom</artifactId>
-    <version>2.0.0</version>
+    <version>${revision}</version>
   </parent>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>12</java.version>
-  </properties>
 
   <dependencies>
     <dependency>
       <groupId>fr.eurecom.adel</groupId>
       <artifactId>adel-commons</artifactId>
-      <version>2.0.0</version>
+      <version>${revision}</version>
     </dependency>
 
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.8</version>
+      <version>${lombok.version}</version>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.4.2</version>
+      <version>${junit.jupiter.engine.version}</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>5.4.2</version>
+      <version>${junit.jupiter.api.version}</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-commons</artifactId>
-      <version>1.4.1</version>
+      <version>${junit.platform.commons.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-engine</artifactId>
+      <version>${junit.platform.engine.version}</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>edu.stanford.nlp</groupId>
       <artifactId>stanford-corenlp</artifactId>
-      <version>3.9.2</version>
+      <version>${stanford.corenlp.version}</version>
     </dependency>
 
     <dependency>
       <groupId>edu.stanford.nlp</groupId>
       <artifactId>stanford-corenlp</artifactId>
-      <version>3.9.2</version>
+      <version>${stanford.corenlp.version}</version>
       <classifier>models-english</classifier>
     </dependency>
 
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>27.1-jre</version>
+      <version>${guava.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.jsoup</groupId>
       <artifactId>jsoup</artifactId>
-      <version>1.12.1</version>
+      <version>${jsoup.version}</version>
     </dependency>
   </dependencies>
 
@@ -85,7 +86,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M3</version>
+        <version>${maven-surefire-plugin.version}</version>
       </plugin>
     </plugins>
   </build>

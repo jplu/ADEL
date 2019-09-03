@@ -3,21 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>adel-commons</artifactId>
-  <version>2.0.0</version>
+  <version>${revision}</version>
   <name>adel-commons</name>
   <url>http://adel.eurecom.fr</url>
 
   <parent>
     <groupId>fr.eurecom.adel</groupId>
     <artifactId>adel-pom</artifactId>
-    <version>2.0.0</version>
+    <version>${revision}</version>
   </parent>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>12</java.version>
-  </properties>
 
   <dependencies>
     <dependency>
@@ -34,57 +28,57 @@
     <dependency>
       <groupId>org.reflections</groupId>
       <artifactId>reflections</artifactId>
-      <version>0.9.11</version>
+      <version>${reflections.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.8</version>
+      <version>${lombok.version}</version>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-validator</artifactId>
-      <version>6.1.0.Alpha4</version>
+      <version>${hibernate.validator.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.twitter.twittertext</groupId>
       <artifactId>twitter-text</artifactId>
-      <version>3.0.1</version>
+      <version>${twitter.text.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.vdurmont</groupId>
       <artifactId>emoji-java</artifactId>
-      <version>4.0.3</version>
+      <version>${emoji.java.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.javatuples</groupId>
       <artifactId>javatuples</artifactId>
-      <version>1.2</version>
+      <version>${javatuples.version}</version>
     </dependency>
 
     <dependency>
       <groupId>de.vandermeer</groupId>
       <artifactId>asciitable</artifactId>
-      <version>0.3.2</version>
+      <version>${asciitable.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.apache.jena</groupId>
       <artifactId>apache-jena-libs</artifactId>
       <type>pom</type>
-      <version>3.12.0</version>
+      <version>${apache.jena.libs.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
-      <version>20180813</version>
+      <version>${json.version}</version>
     </dependency>
   </dependencies>
 

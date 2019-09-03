@@ -3,20 +3,17 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>adel-api</artifactId>
-  <version>2.0.0</version>
+  <version>${revision}</version>
   <name>adel-api</name>
   <url>http://adel.eurecom.fr</url>
 
   <parent>
     <groupId>fr.eurecom.adel</groupId>
     <artifactId>adel-pom</artifactId>
-    <version>2.0.0</version>
+    <version>${revision}</version>
   </parent>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>12</java.version>
     <profile>en</profile>
   </properties>
 
@@ -34,13 +31,13 @@
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-config</artifactId>
-      <version>2.1.2.RELEASE</version>
+      <version>${spring.cloud.starter.config.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-      <version>2.1.1.RELEASE</version>
+      <version>${spring.cloud.starter.netflix.eureka.client.version}</version>
     </dependency>
 
     <dependency>
@@ -51,74 +48,74 @@
     <dependency>
       <groupId>org.springframework.retry</groupId>
       <artifactId>spring-retry</artifactId>
-      <version>1.2.4.RELEASE</version>
+      <version>${spring.retry.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.zalando</groupId>
       <artifactId>logbook-spring-boot-starter</artifactId>
-      <version>2.0.0-RC.1</version>
+      <version>${logbook.spring.boot.starter.version}</version>
     </dependency>
 
     <dependency>
       <groupId>fr.eurecom.adel</groupId>
       <artifactId>adel-recognition</artifactId>
-      <version>2.0.0</version>
+      <version>${revision}</version>
     </dependency>
 
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.8</version>
+      <version>${lombok.version}</version>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger2</artifactId>
-      <version>2.9.2</version>
+      <version>${springfox.swagger2.version}</version>
     </dependency>
 
     <dependency>
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger-ui</artifactId>
-      <version>2.9.2</version>
+      <version>${springfox.swagger.ui.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
-      <version>2.9.9</version>
+      <version>${jackson.datatype.jsr310.version}</version>
     </dependency>
 
     <dependency>
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
-      <version>2.4.0-b180830.0359</version>
+      <version>${jaxb.api.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.sun.xml.bind</groupId>
       <artifactId>jaxb-core</artifactId>
-      <version>2.3.0.1</version>
+      <version>${jaxb.core.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.sun.xml.bind</groupId>
       <artifactId>jaxb-impl</artifactId>
-      <version>2.4.0-b180830.0438</version>
+      <version>${jaxb.impl.version}</version>
     </dependency>
 
     <dependency>
       <groupId>javax.activation</groupId>
       <artifactId>activation</artifactId>
-      <version>1.1.1</version>
+      <version>${activation.version}</version>
     </dependency>
 
     <dependency>
       <groupId>javax.validation</groupId>
       <artifactId>validation-api</artifactId>
-      <version>2.0.1.Final</version>
+      <version>${validation.api.version}</version>
     </dependency>
   </dependencies>
 
@@ -132,12 +129,12 @@
       <plugin>
         <groupId>io.fabric8</groupId>
         <artifactId>docker-maven-plugin</artifactId>
-        <version>0.30.0</version>
+        <version>${docker.maven.plugin.version}</version>
         <configuration>
           <images>
             <image>
               <alias>${project.artifactId}</alias>
-              <name>jplu/${project.artifactId}-${profile}:${project.version}</name>
+              <name>jplu/${project.artifactId}:${profile}-${revision}</name>
               <build>
                 <from>openjdk:oracle</from>
                 <maintainer>Julien Plu</maintainer>
@@ -147,7 +144,7 @@
                 <workdir>/maven</workdir>
                 <runCmds>
                   <runCmd>yum install -y wget</runCmd>
-                  <runCmd>wget -O apm-agent.jar https://search.maven.org/remotecontent?filepath=co/elastic/apm/elastic-apm-agent/1.6.1/elastic-apm-agent-1.6.1.jar</runCmd>
+                  <runCmd>wget -O apm-agent.jar https://search.maven.org/remotecontent?filepath=co/elastic/apm/elastic-apm-agent/${elastic.apm.agent.version}/elastic-apm-agent-${elastic.apm.agent.version}.jar</runCmd>
                 </runCmds>
                 <cmd>
                   <shell>java -javaagent:/maven/apm-agent.jar -jar -Xmx4g ${project.build.finalName}.jar --spring.profiles.active=${profile}</shell>
