@@ -81,11 +81,4 @@
       <version>${json.version}</version>
     </dependency>
   </dependencies>
-
-  <repositories>
-    <repository>
-      <id>local-maven-repo</id>
-      <url>file:///${basedir}${file.separator}local-maven-repo</url>
-    </repository>
-  </repositories>
 </project>
