@@ -43,6 +43,12 @@
       <artifactId>spring-retry</artifactId>
       <version>${spring.retry.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.github.pemistahl</groupId>
+      <artifactId>lingua</artifactId>
+      <version>${lingua.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
