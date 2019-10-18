@@ -8,6 +8,8 @@ import com.github.pemistahl.lingua.api.LanguageDetector;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
@@ -24,7 +26,7 @@ import java.util.stream.Collectors;
 public class LanguageFilter extends ZuulFilter {
   private static Logger log = LoggerFactory.getLogger(LanguageFilter.class);
   private final LanguageDetector detector;
-  private static final Pattern TEXT = Pattern.compile("\\\"text\\\":.?\\\"(.*)\\\"");
+  // private static final Pattern TEXT = Pattern.compile("\\\"text\\\":.?\\\"(.*)\\\"");
 
   public LanguageFilter() {
     this.detector = LanguageDetectorBuilder.fromIsoCodes("en", "fr").build();
@@ -56,15 +58,18 @@ public class LanguageFilter extends ZuulFilter {
     } catch (final IOException ex) {
       throw new ZuulException(ex, 500, ex.getMessage());
     }
+  
+    final JSONObject json = new JSONObject(body);
     
-    final Matcher matcher = LanguageFilter.TEXT.matcher(body);
+    String txt = "";
     
-    if (!matcher.find()) {
+    try {
+      txt = json.getString("text");
+    } catch (final JSONException ex) {
       throw new ZuulException("The body of the request in not properly formed", 500, "The body" +
           "has to be a JSON with a \"text\" property");
     }
     
-    final String txt = matcher.group(1);
     final String language = this.detector.detectLanguageOf(txt).getIsoCode();
     
     req.setAttribute(WebUtils.INCLUDE_REQUEST_URI_ATTRIBUTE, req.getRequestURI().replace("adel",

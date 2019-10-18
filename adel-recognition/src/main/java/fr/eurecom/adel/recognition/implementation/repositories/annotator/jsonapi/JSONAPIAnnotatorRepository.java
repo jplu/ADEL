@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,10 +32,12 @@ import fr.eurecom.adel.recognition.domain.repositories.AnnotatorRepository;
 @Name(name = "JSONAPI")
 public class JSONAPIAnnotatorRepository implements AnnotatorRepository {
   private static final Logger logger = LoggerFactory.getLogger(JSONAPIAnnotatorRepository.class);
-  private final String address;
+  private final String nerAddress;
+  private final String tokenizeAddress;
   
-  public JSONAPIAnnotatorRepository(final String newAddress) {
-    this.address = newAddress;
+  public JSONAPIAnnotatorRepository(final String newNERAddress) {
+    this.nerAddress = newNERAddress;
+    this.tokenizeAddress = newNERAddress.replace("recognize", "tokenize");
   }
   
   @Override
@@ -43,7 +46,7 @@ public class JSONAPIAnnotatorRepository implements AnnotatorRepository {
     final List<Entity> recognizedEntities = new ArrayList<>();
     
     try {
-      final HttpPost post = new HttpPost(this.address);
+      final HttpPost post = new HttpPost(this.nerAddress);
       final String inputJson = "{\"text\": \"" + text + "\"}";
       final HttpEntity requestEntity = new StringEntity(inputJson, ContentType.APPLICATION_JSON);
       
@@ -51,9 +54,9 @@ public class JSONAPIAnnotatorRepository implements AnnotatorRepository {
       
       final HttpResponse response = httpClient.execute(post);
 
-      if (response.getEntity().getContent() != null) {
+      if (null != response.getEntity().getContent()) {
         final String answer = IOUtils.toString(response.getEntity().getContent(),
-            Charset.forName("UTF-8"));
+            StandardCharsets.UTF_8);
         final JSONObject json = new JSONObject(answer);
         final JSONArray entities = json.getJSONArray("entities");
         
@@ -62,17 +65,16 @@ public class JSONAPIAnnotatorRepository implements AnnotatorRepository {
           final JSONObject entity = (JSONObject) entities.get(i);
           
           recognizedEntities.add(Entity.builder()
-              .phrase((String) entity.get("phrase"))
-              .cleanPhrase((String) entity.get("phrase"))
-              .type((String) entity.get("type"))
-              .startOffset((Integer) entity.get("startOffset"))
-              .endOffset((Integer) entity.get("endOffset"))
+              .phrase(entity.getString("phrase"))
+              .cleanPhrase(entity.getString("phrase"))
+              .type(entity.getString("type"))
+              .startOffset(entity.getInt("startOffset"))
+              .endOffset(entity.getInt("endOffset"))
               .build());
         }
-        
       }
     } catch (final IOException ex) {
-      JSONAPIAnnotatorRepository.logger.error("Issue to connect to {}", this.address , ex);
+      JSONAPIAnnotatorRepository.logger.error("Issue to connect to {}", this.nerAddress , ex);
     }
     
     return recognizedEntities;
@@ -80,6 +82,47 @@ public class JSONAPIAnnotatorRepository implements AnnotatorRepository {
   
   @Override
   public final List<List<Token>> tokenize(final String text) {
-    throw new NotImplementedException("Not implemented for the JSON APIs.");
+    final HttpClient httpClient = HttpClientBuilder.create().build();
+    final List<List<Token>> document = new ArrayList<>();
+  
+    try {
+      final HttpPost post = new HttpPost(this.tokenizeAddress);
+      final String inputJson = "{\"text\": \"" + text + "\"}";
+      final HttpEntity requestEntity = new StringEntity(inputJson, ContentType.APPLICATION_JSON);
+    
+      post.setEntity(requestEntity);
+    
+      final HttpResponse response = httpClient.execute(post);
+    
+      if (null != response.getEntity().getContent()) {
+        final String answer = IOUtils.toString(response.getEntity().getContent(),
+            StandardCharsets.UTF_8);
+        final JSONObject json = new JSONObject(answer);
+        final JSONArray sentences = json.getJSONArray("sentences");
+      
+      
+        for (int i = 0; i < sentences.length(); i++) {
+          final JSONObject sentence = (JSONObject) sentences.get(i);
+          final JSONArray apiTokens = sentence.getJSONArray("tokens");
+          final List<Token> tokens = new ArrayList<>();
+          
+          for (int j = 0; j < apiTokens.length(); j++) {
+            final JSONObject token = (JSONObject) apiTokens.get(j);
+  
+            tokens.add(Token.builder()
+                .value(token.getString("value"))
+                .begin(token.getInt("begin"))
+                .end(token.getInt("end"))
+                .build());
+          }
+          
+          document.add(tokens);
+        }
+      }
+    } catch (final IOException ex) {
+      JSONAPIAnnotatorRepository.logger.error("Issue to connect to {}", this.tokenizeAddress , ex);
+    }
+  
+    return document;
   }
 }
