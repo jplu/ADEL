@@ -84,7 +84,7 @@ public class TAC {
   private void read(final String gold) throws IOException, TACMalformedException {
     List<String> annotationsLines = new ArrayList<>();
     
-    if (gold.isEmpty() && this.annotationsInput != null) {
+    if (gold.isEmpty() && null != this.annotationsInput) {
       annotationsLines = Files.readAllLines(this.annotationsInput);
     } else if (!gold.isEmpty()) {
       annotationsLines = Files.readAllLines(Paths.get(gold));
@@ -93,14 +93,14 @@ public class TAC {
     final Map<String, String> tmpTexts = new HashMap<>();
     int lineCount = 0;
 
-    if (this.textsInput != null) {
+    if (null != this.textsInput) {
       final List<String> textsLines = Files.readAllLines(this.textsInput);
 
       for (final String textLine : textsLines) {
         lineCount++;
         final String[] columns = textLine.split("\t");
 
-        if (columns.length != 2) {
+        if (2 != columns.length) {
           throw new TACMalformedException("Malformed TAC file: the line " + lineCount + " in file " + this.textsInput + " has " + columns.length + " columns instead of 2");
         }
 
@@ -114,11 +114,11 @@ public class TAC {
       lineCount++;
       final String[] columns = annotationLine.split("\t");
       
-      if (columns.length != 6) {
+      if (6 != columns.length) {
         throw new TACMalformedException("Malformed TAC file: the line " + lineCount + " in file " + this.annotationsInput + " has " + columns.length + " columns instead of 6");
       }
       
-      if (!tmpTexts.containsKey(columns[0]) && this.textsInput != null) {
+      if (!tmpTexts.containsKey(columns[0]) && null != this.textsInput) {
         throw new TACMalformedException("Malformed TAC file: the document ID " + columns[0] + " at line " + lineCount + " in file " + this.annotationsInput + " does not exists in " + this.textsInput);
       }
       
@@ -205,11 +205,11 @@ public class TAC {
       TAC.log.info("{}{}", System.lineSeparator(), linesText);
     }
     
-    if (this.annotationsOutput != null) {
+    if (null != this.annotationsOutput) {
       Files.write(this.annotationsOutput, Arrays.asList(linesAnnotations.toString().split(System.lineSeparator())));
     }
   
-    if (this.textsOutput != null) {
+    if (null != this.textsOutput) {
       Files.write(this.textsOutput, Arrays.asList(linesText.toString().split(System.lineSeparator())));
     }
   }

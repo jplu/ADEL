@@ -12,7 +12,7 @@ import fr.eurecom.adel.commons.utils.ReflectionUtils;
  */
 public class NameExistsForRecognitionValidator implements ConstraintValidator<NameExistsForRecognition, RecognitionConfig> {
   @Override
-  public boolean isValid(final RecognitionConfig t, final ConstraintValidatorContext constraintValidatorContext) {
+  public final boolean isValid(final RecognitionConfig t, final ConstraintValidatorContext constraintValidatorContext) {
     for (final AnnotatorConfig annotatorConfig : t.getAnnotators()) {
       if (ReflectionUtils.getClassNameFromMethod(annotatorConfig.getAnnotator(), "annotator").isEmpty()) {
         return false;

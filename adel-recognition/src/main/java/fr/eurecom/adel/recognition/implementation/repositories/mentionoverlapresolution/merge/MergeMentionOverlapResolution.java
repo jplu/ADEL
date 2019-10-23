@@ -49,7 +49,7 @@ public class MergeMentionOverlapResolution implements MentionOverlapResolutionRe
             newEntities.add(newEntity);
           }
 
-          if (newEntities.size() > 1) {
+          if (1 < newEntities.size()) {
             final StringBuilder newType = new StringBuilder();
             
             for (final Entity entity : newEntities) {
@@ -157,7 +157,7 @@ public class MergeMentionOverlapResolution implements MentionOverlapResolutionRe
     final int len = Math.min(s1.length(), s2.length());
     int index = -1;
     
-    for (int i = len; i > 0; i--) {
+    for (int i = len; 0 < i; i--) {
       final String substring = s2.substring(0, i);
       
       if (s1.toLowerCase(Locale.getDefault()).endsWith(substring.toLowerCase(Locale.getDefault()))) {

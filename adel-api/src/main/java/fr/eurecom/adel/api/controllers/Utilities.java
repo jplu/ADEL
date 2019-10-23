@@ -16,7 +16,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 public class Utilities {
   @GetMapping("/")
-  public ModelAndView index(ModelMap model) {
+  public final ModelAndView index(final ModelMap model) {
     return new ModelAndView("redirect:/swagger-ui.html", model);
   }
   

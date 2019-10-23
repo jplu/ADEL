@@ -7,6 +7,7 @@ import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -18,7 +19,7 @@ public class RDFUtils {
     try {
       final Model model = ModelFactory.createDefaultModel();
       
-      RDFDataMgr.read(model, IOUtils.toInputStream(content, Charset.forName("UTF-8")), Lang.TURTLE);
+      RDFDataMgr.read(model, IOUtils.toInputStream(content, StandardCharsets.UTF_8), Lang.TURTLE);
     } catch (final Exception ex) {
       return false;
     }

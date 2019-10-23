@@ -19,11 +19,11 @@ public class Annotator {
     this.config = newConfig;
   }
   
-  List<Entity> annotate(final String text) {
+  final List<Entity> annotate(final String text) {
     return this.annotatorRepository.annotate(this.config, text);
   }
   
-  List<List<Token>> tokenize(final String text) {
+  final List<List<Token>> tokenize(final String text) {
     return this.annotatorRepository.tokenize(text);
   }
   

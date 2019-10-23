@@ -23,7 +23,7 @@ public class StanfordCoreNLPAnnotatorRepository implements AnnotatorRepository {
   private final StanfordCoreNLP pipeline;
   
   public StanfordCoreNLPAnnotatorRepository(final String path) {
-    this.pipeline = new StanfordCoreNLP(path.replaceAll("classpath:", ""));
+    this.pipeline = new StanfordCoreNLP(path.replace("classpath:", ""));
   }
   
   @Override
@@ -35,10 +35,10 @@ public class StanfordCoreNLPAnnotatorRepository implements AnnotatorRepository {
     final List<CoreEntityMention> entityMentions = doc.entityMentions();
     final List<Entity> entities = new ArrayList<>();
     
-    if (entityMentions != null) {
+    if (null != entityMentions) {
       for (final CoreEntityMention entityMention : entityMentions) {
         //TODO: add score with entityTypeConfidences
-        if (config.getTags() == null || config.getTags().contains(entityMention.entityType())) {
+        if (null == config.getTags() || config.getTags().contains(entityMention.entityType())) {
           entities.add(
               Entity.builder()
                   .phrase(entityMention.text())
@@ -55,7 +55,7 @@ public class StanfordCoreNLPAnnotatorRepository implements AnnotatorRepository {
   }
   
   @Override
-  public List<List<Token>> tokenize(final String text) {
+  public final List<List<Token>> tokenize(final String text) {
     final CoreDocument doc = new CoreDocument(text);
   
     this.pipeline.annotate(doc);

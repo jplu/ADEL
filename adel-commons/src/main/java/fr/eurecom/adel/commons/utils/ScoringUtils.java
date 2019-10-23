@@ -135,6 +135,7 @@ public class ScoringUtils {
           if (initialEntity.getStartOffset().equals(annotatedEntity.getStartOffset()) && initialEntity.getEndOffset().equals(annotatedEntity.getEndOffset())
               && initialEntity.getType().equals(annotatedEntity.getType())) {
             found = true;
+            break;
           }
         }
       

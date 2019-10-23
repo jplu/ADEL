@@ -72,7 +72,7 @@ public class EntityRecognition {
   @ApiOperation(value = "Entity recognition over a NIF content", nickname = "recognizeNIF", notes = "Entity recognition over a NIF content")
   @ApiResponses(@ApiResponse(code = 200, message = "The process went well"))
   @PostMapping(value = "/nif", consumes = "application/x-turtle;charset=utf-8", produces = "application/x-turtle;charset=utf-8")
-  public String recognizeNIF(@ApiParam(required=true) @RequestBody final String request) {
+  public final String recognizeNIF(@ApiParam(required = true) @RequestBody final String request) {
     final NIF nif = new NIF();
     
     try {

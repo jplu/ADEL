@@ -1,8 +1,12 @@
 package fr.eurecom.adel.commons.validators;
 
+import org.apache.jena.ext.xerces.util.URI;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
@@ -15,26 +19,20 @@ import javax.validation.ConstraintValidatorContext;
 public class URLValidator implements ConstraintValidator<URL, String> {
   @Override
   public boolean isValid(final String t, final ConstraintValidatorContext constraintValidatorContext) {
-    if ( t == null || t.isEmpty()) {
+    if (null == t || t.isEmpty()) {
       return true;
     }
     
     if (t.startsWith("classpath")) {
-      return this.loadProperties(t.replaceAll("classpath:", ""), Thread.currentThread().getContextClassLoader());
+      return this.loadProperties(t.replace("classpath:", ""), Thread.currentThread().getContextClassLoader());
     }
-    /*
+    
     try {
-      final java.net.URL url = new java.net.URL(t);
-      final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-  
-      connection.setRequestMethod("HEAD");
-      
-      final int responseCode = connection.getResponseCode();
-      
-      return (responseCode >= 200 && responseCode <= 399);
-    } catch (final IOException ex) {
+      new java.net.URL(t).toURI();
+    } catch (final MalformedURLException | URISyntaxException ex) {
       return false;
-    }*/
+    }
+    
     return true;
   }
   

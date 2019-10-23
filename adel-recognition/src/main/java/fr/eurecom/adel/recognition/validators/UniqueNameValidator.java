@@ -14,7 +14,7 @@ import fr.eurecom.adel.recognition.configuration.AnnotatorConfig;
  */
 public class UniqueNameValidator implements ConstraintValidator<UniqueName, List<AnnotatorConfig>> {
   @Override
-  public boolean isValid(final List<AnnotatorConfig> t, final ConstraintValidatorContext constraintValidatorContext) {
+  public final boolean isValid(final List<AnnotatorConfig> t, final ConstraintValidatorContext constraintValidatorContext) {
     final Collection<String> names = new ArrayList<>();
   
     for (final AnnotatorConfig extractor : t) {

@@ -20,6 +20,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import fr.eurecom.adel.recognition.configuration.TypeOverlappingConfig;
@@ -61,7 +62,7 @@ public class MajorityVotingTypeOverlapResolution implements TypeOverlapResolutio
           }
         }
   
-        this.typesMapping.put(Files.getNameWithoutExtension(resource.getFilename()), mapping);
+        this.typesMapping.put(Files.getNameWithoutExtension(Objects.requireNonNull(resource.getFilename())), mapping);
       }
     } catch (final IOException ex) {
       MajorityVotingTypeOverlapResolution.logger.error("Issue to read the mapping files", ex);
@@ -90,14 +91,13 @@ public class MajorityVotingTypeOverlapResolution implements TypeOverlapResolutio
         
         if (newType.toString().isEmpty()) {
           newType = new StringBuilder(this.resolveTypeMapping(splittedType[1].split("--")[0], config.getTo(), splittedType[0]));
-          newType.append("--");
-          newType.append(config.getPriority().indexOf(splittedType[1].split("--")[1]));
         } else {
           newType.append("||");
           newType.append(this.resolveTypeMapping(splittedType[1].split("--")[0], config.getTo(), splittedType[0]));
-          newType.append("--");
-          newType.append(config.getPriority().indexOf(splittedType[1].split("--")[1]));
         }
+        
+        newType.append("--");
+        newType.append(config.getPriority().indexOf(splittedType[1].split("--")[1]));
       }
       
       entity.setType(newType.toString());

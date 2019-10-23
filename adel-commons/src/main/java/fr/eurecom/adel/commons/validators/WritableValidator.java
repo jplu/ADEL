@@ -11,7 +11,7 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class WritableValidator implements ConstraintValidator<Writable, String> {
   @Override
-  public boolean isValid(final String t, final ConstraintValidatorContext constraintValidatorContext) {
+  public final boolean isValid(final String t, final ConstraintValidatorContext constraintValidatorContext) {
     if (t.isEmpty()) {
       return true;
     }

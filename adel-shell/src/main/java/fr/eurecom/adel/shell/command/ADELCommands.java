@@ -110,7 +110,7 @@ public class ADELCommands {
         conll.write(print);
       }
     } else if ("NIF".equals(format)) {
-      if (allAnnotators && document.size() > 1) {
+      if (allAnnotators && 1 < document.size()) {
         for (final Map.Entry<String, Document> entry : document.entrySet()) {
           if (!"adel".equals(entry.getKey())) {
             final String name = entry.getKey() + ".nif";
@@ -134,7 +134,7 @@ public class ADELCommands {
         nif.write(print);
       }
     } else {
-      if (allAnnotators && document.size() > 1) {
+      if (allAnnotators && 1 < document.size()) {
         for (final Map.Entry<String, Document> entry : document.entrySet()) {
           if (!"adel".equals(entry.getKey())) {
             final String nameAnnotations = entry.getKey() + ".tac";

@@ -11,7 +11,7 @@ import fr.eurecom.adel.recognition.configuration.RecognitionConfig;
  */
 public class ContentPriorityListValidator implements ConstraintValidator<ContentPriorityList, RecognitionConfig> {
   @Override
-  public boolean isValid(final RecognitionConfig t, final ConstraintValidatorContext constraintValidatorContext) {
+  public final boolean isValid(final RecognitionConfig t, final ConstraintValidatorContext constraintValidatorContext) {
     for (final AnnotatorConfig config : t.getAnnotators()) {
       if (!t.getTypeoverlapping().getPriority().contains(config.getName())) {
         return false;

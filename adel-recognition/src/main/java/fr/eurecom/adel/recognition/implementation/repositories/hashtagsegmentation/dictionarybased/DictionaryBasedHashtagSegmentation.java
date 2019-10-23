@@ -22,6 +22,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import fr.eurecom.adel.recognition.domain.repositories.HashtagSegmentationRepository;
@@ -67,7 +68,7 @@ public class DictionaryBasedHashtagSegmentation implements HashtagSegmentationRe
     final String lowerCase = hashtag.toLowerCase(Locale.ENGLISH);
     int size = lowerCase.length();
     
-    if (lowerCase.length() > 250) {
+    if (250 < lowerCase.length()) {
       size = 250;
     }
     
@@ -78,7 +79,7 @@ public class DictionaryBasedHashtagSegmentation implements HashtagSegmentationRe
       
       final List<String> chunkWords = new ArrayList<>(this.search(prefix + chunk, "<s>").getRight());
       
-      if (chunkWords.size() < 5) {
+      if (5 > chunkWords.size()) {
         prefix = String.join("", chunkWords);
       } else {
         prefix = String.join("", chunkWords.subList(chunkWords.size() - 5, chunkWords.size()));
@@ -96,7 +97,7 @@ public class DictionaryBasedHashtagSegmentation implements HashtagSegmentationRe
       final Resource[] resources = resolver.getResources("classpath:dictionaries/**/*.tsv");
     
       for (final Resource resource: resources) {
-        this.readDictionary(this.readResource(resource.getInputStream()), resource.getFilename());
+        this.readDictionary(this.readResource(resource.getInputStream()), Objects.requireNonNull(resource.getFilename()));
       }
     } catch (final IOException ex) {
       DictionaryBasedHashtagSegmentation.logger.error("", ex);

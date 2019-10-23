@@ -4,7 +4,19 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>adel-commons</artifactId>
   <version>${revision}</version>
-  <name>adel-commons</name>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>13</source>
+                    <target>13</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <name>adel-commons</name>
   <url>http://adel.eurecom.fr</url>
 
   <parent>

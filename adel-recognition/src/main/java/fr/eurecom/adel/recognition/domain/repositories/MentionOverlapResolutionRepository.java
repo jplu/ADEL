@@ -9,6 +9,7 @@ import fr.eurecom.adel.recognition.configuration.AnnotatorConfig;
 /**
  * @author Julien Plu on 2018-12-17.
  */
+@FunctionalInterface
 public interface MentionOverlapResolutionRepository {
   List<Entity> resolveMentionOverlapping(Map<AnnotatorConfig, List<Entity>> documents);
 }

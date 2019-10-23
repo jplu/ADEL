@@ -36,23 +36,23 @@ public class CoNLL {
   private final List<List<String>> conllGoldLabels;
   private String conllContent;
   
-  public CoNLL(final String newInput, final String newOutput, final boolean is0203Format) throws CoNLLMalformedException, IOException {
+  public CoNLL(final String newInput, final String newOutput, final boolean is2003Format) throws CoNLLMalformedException, IOException {
     this.input = Paths.get(newInput);
     this.output = Paths.get(newOutput);
     this.conllDocuments = new ArrayList<>();
     this.conllLabels = new ArrayList<>();
     this.conllGoldLabels = new ArrayList<>();
     
-    this.read(false, is0203Format);
+    this.read(false, is2003Format);
   }
   
-  public CoNLL(final String newInput, final boolean isEval, final boolean is0203Format) throws CoNLLMalformedException, IOException {
+  public CoNLL(final String newInput, final boolean isEval, final boolean is2003Format) throws CoNLLMalformedException, IOException {
     this.input = Paths.get(newInput);
     this.conllDocuments = new ArrayList<>();
     this.conllLabels = new ArrayList<>();
     this.conllGoldLabels = new ArrayList<>();
   
-    this.read(isEval, is0203Format);
+    this.read(isEval, is2003Format);
   }
   
   public CoNLL(final String newOutput) {
@@ -78,14 +78,14 @@ public class CoNLL {
     return documentsAsText;
   }
   
-  private void read(final boolean isEval, final boolean is0203Format) throws CoNLLMalformedException, IOException {
+  private void read(final boolean isEval, final boolean is2003Format) throws CoNLLMalformedException, IOException {
     final List<String> lines = Files.readAllLines(this.input, Charset.forName("UTF-8"));
     
     if (!lines.get(lines.size() - 1).isEmpty()) {
       throw new CoNLLMalformedException("Malformed CoNLL: new line missing at the end of the file " + this.input);
     }
     
-    if (is0203Format && isEval) {
+    if (is2003Format && isEval) {
       throw new CoNLLMalformedException("Cannot evaluate a CoNLL02/CoNLL03 formats");
     }
     
@@ -93,7 +93,7 @@ public class CoNLL {
 
     if (isEval) {
       count = 3;
-    } else if (is0203Format) {
+    } else if (is2003Format) {
       count = 4;
     }
 
@@ -123,7 +123,7 @@ public class CoNLL {
           if (isEval) {
             labels.add(tokens[1].replaceAll("[I|B]-", ""));
             goldLabels.add(tokens[2].replaceAll("[I|B]-", ""));
-          } else if (is0203Format) {
+          } else if (is2003Format) {
             goldLabels.add(tokens[3].replaceAll("[I|B]-", ""));
           } else {
             goldLabels.add(tokens[1].replaceAll("[I|B]-", ""));
@@ -244,8 +244,6 @@ public class CoNLL {
     
     if (this.output != null) {
       Files.writeString(this.output, this.conllContent);
-      //Files.write(this.output, Collections.singletonList(System.lineSeparator()),
-      //    StandardOpenOption.APPEND);
     }
   }
   

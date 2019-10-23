@@ -12,8 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DocumentConverter {
-  @NotNull
-  private String text;
+  private @NotNull String text;
   
   public final Document toDocument() {
     return Document.builder().text(this.text).build();

@@ -12,7 +12,7 @@ import fr.eurecom.adel.recognition.configuration.AnnotatorConfig;
  */
 public class HasTokenizerValidator implements ConstraintValidator<HasTokenizer, List<AnnotatorConfig>> {
   @Override
-  public boolean isValid(final List<AnnotatorConfig> t, final ConstraintValidatorContext constraintValidatorContext) {
+  public final boolean isValid(final List<AnnotatorConfig> t, final ConstraintValidatorContext constraintValidatorContext) {
     for (final AnnotatorConfig config : t) {
       if (config.getTokenizer()) {
         return true;

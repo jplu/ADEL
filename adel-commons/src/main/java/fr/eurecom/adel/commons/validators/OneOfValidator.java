@@ -12,15 +12,15 @@ public class OneOfValidator implements ConstraintValidator<OneOf, Object> {
   private boolean ignoreWhitespace;
   
   @Override
-  public void initialize(final OneOf constraintAnnotation) {
+  public final void initialize(final OneOf constraintAnnotation) {
     this.values = constraintAnnotation.value();
     this.caseInsensitive = constraintAnnotation.ignoreCase();
     this.ignoreWhitespace = constraintAnnotation.ignoreWhitespace();
   }
   
   @Override
-  public boolean isValid(final Object t, final ConstraintValidatorContext constraintValidatorContext) {
-    if (t == null) {
+  public final boolean isValid(final Object t, final ConstraintValidatorContext constraintValidatorContext) {
+    if (null == t) {
       return true;
     }
     

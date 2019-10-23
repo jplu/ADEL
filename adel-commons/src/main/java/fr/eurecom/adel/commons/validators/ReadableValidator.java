@@ -11,7 +11,7 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class ReadableValidator implements ConstraintValidator<Readable, String> {
   @Override
-  public boolean isValid(final String t, final ConstraintValidatorContext constraintValidatorContext) {
+  public final boolean isValid(final String t, final ConstraintValidatorContext constraintValidatorContext) {
     if (t.isEmpty()) {
       return true;
     }

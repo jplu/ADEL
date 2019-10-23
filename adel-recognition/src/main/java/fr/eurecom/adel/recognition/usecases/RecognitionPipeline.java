@@ -43,7 +43,7 @@ public class RecognitionPipeline {
   public final Map<String, Document> run(final String text) throws MappingNotExistsException, TypeNotExistsException {
     Pair<String, List<TweetEntity>> normalizeTweet = Pair.of(text, new ArrayList<>());
     
-    if (this.tweetNormalization != null) {
+    if (null != this.tweetNormalization) {
       normalizeTweet = this.tweetNormalization.normalize(text);
     }
     
@@ -65,7 +65,7 @@ public class RecognitionPipeline {
     
     final Map<String, Document> allDocuments = new HashMap<>(Map.of("adel", adelDocument));
     
-    if (this.annotators.size() == 1) {
+    if (1 == this.annotators.size()) {
       return allDocuments;
     }
     
@@ -126,7 +126,7 @@ public class RecognitionPipeline {
       }
     }
     
-    if (index != -1) {
+    if (-1 != index) {
       entities.get(index).setStartOffset(tweetEntity.getStartOffset());
       entities.get(index).setEndOffset(tweetEntity.getEndOffset());
       entities.get(index).setPhrase(tweetEntity.getPhrase());

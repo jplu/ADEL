@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -51,7 +52,7 @@ public class NIF {
   private static final String HOST = "http://adel.eurecom.fr";
   private Path input;
   private Path output;
-  private Map<String, Pair<String, List<Entity>>> goldDocuments;
+  private final Map<String, Pair<String, List<Entity>>> goldDocuments;
   private Map<String, Pair<String, List<Entity>>> annotatedDocuments;
   
   public NIF(final String newInput, final String newOutput) throws IOException, NIFMalformedException {
@@ -100,7 +101,7 @@ public class NIF {
     }
   
     final Model model = ModelFactory.createDefaultModel();
-    final InputStream targetStream = IOUtils.toInputStream(nifString, Charset.forName("UTF-8"));
+    final InputStream targetStream = IOUtils.toInputStream(nifString, StandardCharsets.UTF_8);
     
     RDFDataMgr.read(model, targetStream, Lang.TURTLE);
     
@@ -190,7 +191,7 @@ public class NIF {
         final String[] documentURI = solTxt.get("document").toString().split("/");
         final String id = documentURI[documentURI.length - 1].split("#")[0];
         
-        if (solTxt.get("txt") != null) {
+        if (null != solTxt.get("txt")) {
           String type = solTxt.get("type").toString();
 
           if (!type.contains("dbpedia")) {
@@ -320,7 +321,7 @@ public class NIF {
       NIF.log.info("{}{}", System.lineSeparator(), sw);
     }
 
-    if (this.output != null) {
+    if (null != this.output) {
       RDFDataMgr.write(Files.newOutputStream(this.output), model, RDFFormat.TURTLE_PRETTY);
     }
   }

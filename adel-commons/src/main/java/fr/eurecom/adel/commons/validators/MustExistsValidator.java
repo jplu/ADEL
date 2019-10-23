@@ -9,7 +9,7 @@ import javax.validation.ConstraintValidatorContext;
 /** @author Julien Plu on 2019-02-23. */
 public class MustExistsValidator implements ConstraintValidator<MustExists, String> {
   @Override
-  public boolean isValid(final String t, final ConstraintValidatorContext constraintValidatorContext) {
+  public final boolean isValid(final String t, final ConstraintValidatorContext constraintValidatorContext) {
     if (t.isEmpty()) {
       return true;
     }

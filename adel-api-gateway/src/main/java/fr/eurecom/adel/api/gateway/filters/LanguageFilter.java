@@ -16,17 +16,13 @@ import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.web.util.WebUtils;
 
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
  * @author Julien Plu on 2019-04-01.
  */
 public class LanguageFilter extends ZuulFilter {
-  private static Logger log = LoggerFactory.getLogger(LanguageFilter.class);
   private final LanguageDetector detector;
-  // private static final Pattern TEXT = Pattern.compile("\\\"text\\\":.?\\\"(.*)\\\"");
 
   public LanguageFilter() {
     this.detector = LanguageDetectorBuilder.fromIsoCodes("en", "fr").build();
