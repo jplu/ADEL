@@ -163,7 +163,9 @@ This example of profile contains the following properties (they are all mandator
         - *annotator*: is the type of annotator (available: StanfordCoreNLP)
         - *name*: is the unique name given to this annotator
         - *address*: is the address of a configuration file (here a usual configuration file for 
-        Stanford CoreNLP)
+        Stanford CoreNLP), or the base URL of a JSON API
+        (`http://xxx.xx/api/method` -> `http://xxx.xx/api/`). If it is a JSON API two methods have
+        to be implemented `tokenize` and `recognize` otherwise the API cannot be queried.
         - *tags*: only property to be optional. Represents the list of entity types to keep. If 
         absent all the entity types will be kept.
         - *from*: the vocabulary that the used model will provide (available: CoNLL, DBpedia, 
