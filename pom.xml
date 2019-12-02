@@ -16,27 +16,27 @@
     <elastic.apm.agent.version>1.10.0</elastic.apm.agent.version>
     <docker.maven.plugin.version>0.31.0</docker.maven.plugin.version>
     <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
-    <spring.cloud.starter.config.version>2.2.0.M3</spring.cloud.starter.config.version>
-    <spring.cloud.starter.netflix.eureka.client.version>2.2.0.M3</spring.cloud.starter.netflix.eureka.client.version>
-    <spring.cloud.starter.netflix.zuul.version>2.2.0.M3</spring.cloud.starter.netflix.zuul.version>
-    <spring.cloud.config.server.version>2.2.0.M3</spring.cloud.config.server.version>
-    <spring.cloud.starter.netflix.eureka.server.version>2.2.0.M3</spring.cloud.starter.netflix.eureka.server.version>
-    <spring.cloud.starter.netflix.hystrix.dashboard.version>2.2.0.M3</spring.cloud.starter.netflix.hystrix.dashboard.version>
-    <spring.boot.admin.starter.server.version>2.1.6</spring.boot.admin.starter.server.version>
-    <spring.boot.admin.server.ui.version>2.1.6</spring.boot.admin.server.ui.version>
+    <spring.cloud.starter.config.version>2.2.0.RELEASE</spring.cloud.starter.config.version>
+    <spring.cloud.starter.netflix.eureka.client.version>2.2.0.RELEASE</spring.cloud.starter.netflix.eureka.client.version>
+    <spring.cloud.starter.netflix.zuul.version>2.2.0.RELEASE</spring.cloud.starter.netflix.zuul.version>
+    <spring.cloud.config.server.version>2.2.0.RELEASE</spring.cloud.config.server.version>
+    <spring.cloud.starter.netflix.eureka.server.version>2.2.0.RELEASE</spring.cloud.starter.netflix.eureka.server.version>
+    <spring.cloud.starter.netflix.hystrix.dashboard.version>2.2.0.RELEASE</spring.cloud.starter.netflix.hystrix.dashboard.version>
+    <spring.boot.admin.starter.server.version>2.2.0</spring.boot.admin.starter.server.version>
+    <spring.boot.admin.server.ui.version>2.2.0</spring.boot.admin.server.ui.version>
     <spring.retry.version>1.2.4.RELEASE</spring.retry.version>
-    <logbook.spring.boot.starter.version>2.0.0-RC.5</logbook.spring.boot.starter.version>
+    <logbook.spring.boot.starter.version>2.0.0-RC.6</logbook.spring.boot.starter.version>
     <lombok.version>1.18.8</lombok.version>
     <springfox.swagger2.version>2.9.2</springfox.swagger2.version>
     <springfox.swagger.ui.version>2.9.2</springfox.swagger.ui.version>
-    <jackson.datatype.jsr310.version>2.10.0.pr3</jackson.datatype.jsr310.version>
+    <jackson.datatype.jsr310.version>2.10.1</jackson.datatype.jsr310.version>
     <jaxb.api.version>2.4.0-b180830.0359</jaxb.api.version>
     <jaxb.core.version>2.3.0.1</jaxb.core.version>
     <jaxb.impl.version>2.4.0-b180830.0438</jaxb.impl.version>
     <activation.version>1.1.1</activation.version>
     <validation.api.version>2.0.1.Final</validation.api.version>
     <reflections.version>0.9.11</reflections.version>
-    <hibernate.validator.version>6.1.0.Alpha6</hibernate.validator.version>
+    <hibernate.validator.version>6.1.0.Final</hibernate.validator.version>
     <twitter.text.version>3.0.1</twitter.text.version>
     <emoji.java.version>5.1.1</emoji.java.version>
     <javatuples.version>1.2</javatuples.version>
@@ -57,7 +57,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.2.0.RELEASE</version>
+    <version>2.2.1.RELEASE</version>
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
 
@@ -83,7 +83,7 @@
     </plugins>
   </build>
 
-  <repositories>
+<!--  <repositories>
     <repository>
       <id>spring-milestones</id>
       <name>Spring Milestones</name>
@@ -103,7 +103,7 @@
         <scope>import</scope>
       </dependency>
     </dependencies>
-  </dependencyManagement>
+  </dependencyManagement>-->
 
   <modules>
     <module>adel-commons</module>

@@ -9,8 +9,8 @@ the recognition is available, thus in case you want all the features, use the ve
 find in the release tab, or through the v1.0.0 tag.
 
 ## Used frameworks
-* Spring Boot 2.2.0
-* Spring Cloud 2.1.4
+* Spring Boot 2.2.1
+* Spring Cloud 2.2.0
 * Logbook Spring Boot 2.0.0
 * Lombok 1.18.8
 * Reflections 0.9.11
