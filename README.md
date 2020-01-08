@@ -9,11 +9,11 @@ the recognition is available, thus in case you want all the features, use the ve
 find in the release tab, or through the v1.0.0 tag.
 
 ## Used frameworks
-* Spring Boot 2.2.1
-* Spring Cloud 2.2.0
+* Spring Boot 2.2.2
+* Spring Cloud 2.2.1
 * Logbook Spring Boot 2.0.0
 * Lombok 1.18.8
-* Reflections 0.9.11
+* Reflections 0.9.12
 * Hibernate Validator 6.1.0
 * Twitter Text 3.0.1
 * Emoji Java 5.1.1
@@ -22,11 +22,11 @@ find in the release tab, or through the v1.0.0 tag.
 * Apache Jena 3.13.1
 * Junit 5.5.2
 * Stanford CoreNLP 3.9.2
-* Guava 28.1
+* Guava 28.2
 * Jsoup 1.12.1
 * Spring Shell 2.0.1
 * Springfox 2.9.2
-* Lingua 0.5.0
+* Lingua 0.6.0
 
 ## Requirements
 * Java 13 and earlier

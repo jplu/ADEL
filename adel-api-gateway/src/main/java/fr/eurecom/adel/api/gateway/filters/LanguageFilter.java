@@ -1,5 +1,6 @@
 package fr.eurecom.adel.api.gateway.filters;
 
+import com.github.pemistahl.lingua.api.IsoCode639_1;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
@@ -10,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.web.util.WebUtils;
 
@@ -25,7 +24,9 @@ public class LanguageFilter extends ZuulFilter {
   private final LanguageDetector detector;
 
   public LanguageFilter() {
-    this.detector = LanguageDetectorBuilder.fromIsoCodes("en", "fr").build();
+    this.detector = LanguageDetectorBuilder.fromIsoCodes639_1(
+        IsoCode639_1.FR,
+        IsoCode639_1.EN).build();
   }
   
   @Override
@@ -66,7 +67,7 @@ public class LanguageFilter extends ZuulFilter {
           "has to be a JSON with a \"text\" property");
     }
     
-    final String language = this.detector.detectLanguageOf(txt).getIsoCode();
+    final String language = this.detector.detectLanguageOf(txt).getIsoCode639_1().toString();
     
     req.setAttribute(WebUtils.INCLUDE_REQUEST_URI_ATTRIBUTE, req.getRequestURI().replace("adel",
         "adel-" + language));
